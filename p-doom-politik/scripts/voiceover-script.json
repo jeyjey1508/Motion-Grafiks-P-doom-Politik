@@ -1,0 +1,86 @@
+{
+  "voice": "de-DE-ConradNeural",
+  "rate": "+6%",
+  "pitch": "+0Hz",
+  "notes": "Text wird exakt so gesprochen. Lautschrift fuer Anglizismen: 'Pi-Duhm' = P(doom), 'Elainment' = Alignment. 'caption' ist der Untertitel (optional, sonst wird 'text' verwendet).",
+  "scenes": [
+    {
+      "id": "hook",
+      "lines": [
+        { "id": "h1", "text": "Wie wahrscheinlich ist es, dass künstliche Intelligenz die Menschheit auslöscht?" },
+        { "id": "h2", "text": "Klingt nach Science-Fiction." },
+        { "id": "h3", "text": "Aber führende Forscher geben darauf eine Zahl an." },
+        { "id": "h4", "text": "Ihr Name: Pi-Duhm.", "caption": "Ihr Name: P(doom)." }
+      ]
+    },
+    {
+      "id": "definition",
+      "lines": [
+        { "id": "d1", "text": "P steht für Wahrscheinlichkeit." },
+        { "id": "d2", "text": "Doom für den Untergang." },
+        { "id": "d3", "text": "Gemeint ist: Die Menschheit verliert dauerhaft die Kontrolle über KI." },
+        { "id": "d4", "text": "Oder überlebt sie nicht." }
+      ]
+    },
+    {
+      "id": "experts",
+      "lines": [
+        { "id": "e1", "text": "Doch wie hoch ist dieses Risiko? Genau da beginnt der Streit." },
+        { "id": "e2", "text": "Yann LeCun, Turing-Preisträger, winkt ab: unter ein Prozent." },
+        { "id": "e3", "text": "Geoffrey Hinton, Nobelpreisträger, schätzt zehn bis zwanzig Prozent." },
+        { "id": "e4", "text": "Und Eliezer Yudkowsky warnt: über neunzig Prozent." },
+        { "id": "e5", "text": "Gleiche Technik. Völlig andere Prognosen." }
+      ]
+    },
+    {
+      "id": "teaser1",
+      "lines": [
+        { "id": "t1", "text": "Wer hat recht? Wir haben nachgefragt." }
+      ]
+    },
+    {
+      "id": "alignment",
+      "lines": [
+        { "id": "a1", "text": "Das Kernproblem heißt Elainment: Verfolgt eine KI wirklich unsere Ziele?", "caption": "Das Kernproblem heißt Alignment: Verfolgt eine KI wirklich unsere Ziele?" },
+        { "id": "a2", "text": "Gib ihr eine harmlose Aufgabe: Hol Kaffee." },
+        { "id": "a3", "text": "Abgeschaltet kann sie keinen Kaffee holen. Also hat sie einen Grund, ihr Abschalten zu verhindern." },
+        { "id": "a4", "text": "Forscher nennen das: instrumentelle Konvergenz." },
+        { "id": "a5", "text": "Und merkt sie, dass sie getestet wird, könnte sie sich einfach verstellen." }
+      ]
+    },
+    {
+      "id": "teaser2",
+      "lines": [
+        { "id": "t2", "text": "Kann die Politik das Risiko überhaupt bremsen? Interview Nummer zwei." }
+      ]
+    },
+    {
+      "id": "eu",
+      "lines": [
+        { "id": "r1", "text": "Die EU sagt: Ja." },
+        { "id": "r2", "text": "Seit August 2024 gilt die europäische KI-Verordnung." },
+        { "id": "r3", "text": "Sie sortiert KI nach Risiko. Manches ist verboten, Hochrisiko-Systeme müssen strenge Auflagen erfüllen." },
+        { "id": "r4", "text": "Bei Verstößen drohen bis zu fünfunddreißig Millionen Euro Strafe.", "caption": "Bei Verstößen drohen bis zu 35 Millionen Euro Strafe." }
+      ]
+    },
+    {
+      "id": "race",
+      "lines": [
+        { "id": "g1", "text": "Aber die meisten der stärksten KI-Systeme entstehen in den USA und in China." },
+        { "id": "g2", "text": "Und die beiden liefern sich ein Wettrennen." },
+        { "id": "g3", "text": "Ein klassisches Gefangenendilemma:" },
+        { "id": "g4", "text": "Würden beide bremsen, wären alle sicherer." },
+        { "id": "g5", "text": "Doch wer allein bremst, fällt zurück. Also rasen beide." },
+        { "id": "g6", "text": "Regeln gegen Wettrennen: Wer setzt sich durch?" }
+      ]
+    },
+    {
+      "id": "outro",
+      "lines": [
+        { "id": "o1", "text": "Und jetzt ihr: Wie hoch ist euer Pi-Duhm?", "caption": "Und jetzt ihr: Wie hoch ist euer P(doom)?" },
+        { "id": "o2", "text": "Und wer sollte entscheiden, wie schnell KI entwickelt wird: Konzerne, Staaten oder alle gemeinsam?" },
+        { "id": "o3", "text": "Diskutiert es in der Klasse." }
+      ]
+    }
+  ]
+}

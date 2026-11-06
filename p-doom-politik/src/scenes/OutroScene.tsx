@@ -1,98 +1,107 @@
 import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { SceneFrame } from "../components/SceneFrame";
-import { COLORS, FONT, RADIUS, SHADOW, TYPE, springIn } from "../theme";
+import { AbsoluteFill } from "remotion";
+import { SceneShell } from "../components/Background";
+import { Building, Globe, Pillars } from "../components/Icons";
+import { Beat, Headline, Kicker, Sfx, SlotNumber } from "../components/kinetic";
+import { COLORS, FONT, SHADOW } from "../theme";
+import { cue, endOf, wordAt, type Cues } from "../timeline";
 
-export const DEFAULT_QUESTIONS: readonly string[] = [
-  "Würdet ihr in ein Flugzeug steigen, das mit 10 % Wahrscheinlichkeit abstürzt? Was folgt daraus für KI?",
-  "Wer sollte über mächtige KI entscheiden: Unternehmen, Staaten oder internationale Gremien?",
-  "Kann der EU AI Act wirken, wenn die USA und China um die Wette rennen?",
-];
+const OPTIONS = [
+  { word: "Konzerne", label: "Konzerne", color: COLORS.violet, Icon: Building },
+  { word: "Staaten", label: "Staaten", color: COLORS.blue, Icon: Pillars },
+  { word: "alle", label: "Alle gemeinsam", color: COLORS.green, Icon: Globe },
+] as const;
 
 /**
- * Outro mit Diskussionsfragen für die Klasse.
+ * Outro: Frage an die Klasse, drei Entscheider, Aufruf zur Diskussion.
  */
-export const OutroScene: React.FC<{
-  readonly questions?: readonly string[];
-}> = ({ questions = DEFAULT_QUESTIONS }) => {
-  const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+export const OutroScene: React.FC<{ readonly cues: Cues }> = ({ cues }) => {
+  const o1 = cue(cues, "o1");
+  const o2 = cue(cues, "o2");
+  const o3 = cue(cues, "o3");
 
-  const closingIn = springIn({ frame, fps, delay: 18 + questions.length * 12 + 10 });
+  const yourAt = wordAt(o1, "euer");
+  const decideAt = wordAt(o2, "entscheiden");
+  const discussAt = wordAt(o3, "Diskutiert");
 
   return (
-    <SceneFrame kicker="Zum Weiterdenken" title="Diskutiert in der Klasse">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: 24,
-          fontFamily: FONT.sans,
-        }}
-      >
-        {questions.map((question, i) => {
-          const enter = springIn({ frame, fps, delay: 14 + i * 12 });
-          return (
-            <div
-              key={question}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 36,
-                padding: "30px 44px",
-                borderRadius: RADIUS.card,
-                backgroundColor: COLORS.surface,
-                border: `1px solid ${COLORS.border}`,
-                boxShadow: SHADOW.card,
-                opacity: enter,
-                translate: `${interpolate(enter, [0, 1], [-48, 0])}px 0px`,
-              }}
-            >
+    <SceneShell seed="outro" glow={COLORS.yellow} bg="#0F1026">
+      {/* Phase 1: Euer P(doom)? */}
+      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", flexDirection: "column", gap: 10 }}>
+        <Beat at={o1.from} out={o2.from - 2} exit="up">
+          <Kicker color={COLORS.yellow}>Und jetzt ihr</Kicker>
+        </Beat>
+        <Beat at={yourAt} out={o2.from - 2} enter="slam" exit="up">
+          <Headline size={190}>
+            Euer P(<span style={{ color: COLORS.red }}>doom</span>)?
+          </Headline>
+        </Beat>
+        <Beat at={yourAt + 6} out={o2.from - 2} enter="pop" exit="up">
+          <div style={{ fontFamily: FONT.display, fontSize: 250, lineHeight: 1, color: COLORS.yellow }}>
+            <SlotNumber stopAt={endOf(o1) + 4} final="??" seed="outro" /> %
+          </div>
+        </Beat>
+      </AbsoluteFill>
+
+      {/* Phase 2: Wer entscheidet? */}
+      <AbsoluteFill style={{ alignItems: "center", paddingTop: 120 }}>
+        <Beat at={decideAt} out={o3.from - 2} enter="slam" exit="up">
+          <Headline size={170}>Wer entscheidet?</Headline>
+        </Beat>
+        <div style={{ display: "flex", gap: 44, marginTop: 70 }}>
+          {OPTIONS.map(({ word, label, color, Icon }) => (
+            <Beat key={label} at={wordAt(o2, word)} out={o3.from - 2} enter="pop" exit="shrink">
               <div
                 style={{
-                  width: 72,
-                  height: 72,
-                  flexShrink: 0,
-                  borderRadius: RADIUS.pill,
-                  backgroundColor: COLORS.accent,
+                  width: 440,
+                  height: 380,
+                  borderRadius: 36,
+                  backgroundColor: COLORS.panel,
+                  boxShadow: SHADOW.card,
+                  borderTop: `10px solid ${color}`,
                   display: "flex",
+                  flexDirection: "column",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontFamily: FONT.mono,
-                  fontSize: 36,
-                  fontWeight: 700,
-                  color: COLORS.ground,
+                  gap: 26,
                 }}
               >
-                {i + 1}
+                <Icon size={150} color={color} />
+                <Headline size={label.length > 10 ? 70 : 84}>{label}</Headline>
               </div>
-              <div
-                style={{
-                  fontSize: 44,
-                  fontWeight: 600,
-                  lineHeight: 1.3,
-                  letterSpacing: "-0.01em",
-                  color: COLORS.ink,
-                }}
-              >
-                {question}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-      <div
-        style={{
-          marginTop: 40,
-          fontSize: TYPE.label,
-          color: COLORS.inkSecondary,
-          opacity: closingIn,
-          translate: `0px ${interpolate(closingIn, [0, 1], [12, 0])}px`,
-        }}
-      >
-        P(doom) ist keine Messgröße, sondern eine Einschätzung. Begründet eure
-        eigene.
-      </div>
-    </SceneFrame>
+            </Beat>
+          ))}
+        </div>
+      </AbsoluteFill>
+
+      {/* Phase 3: Diskutiert! */}
+      <AbsoluteFill style={{ justifyContent: "center", alignItems: "center", flexDirection: "column", gap: 34 }}>
+        <Beat at={discussAt} enter="slam">
+          <Headline size={280} color={COLORS.yellow}>
+            Diskutiert!
+          </Headline>
+        </Beat>
+        <Beat at={wordAt(o3, "Klasse")}>
+          <Kicker>In der Klasse</Kicker>
+        </Beat>
+      </AbsoluteFill>
+      <AbsoluteFill style={{ justifyContent: "flex-end", alignItems: "center", paddingBottom: 70 }}>
+        <Beat at={endOf(o3) + 20} enter="fade">
+          <div style={{ fontFamily: FONT.sans, fontWeight: 800, fontSize: 30, color: COLORS.inkMuted, letterSpacing: "0.08em" }}>
+            P(DOOM) · POLITIK &amp; KÜNSTLICHE INTELLIGENZ
+          </div>
+        </Beat>
+      </AbsoluteFill>
+
+      <Sfx name="whoosh-soft" at={o1.from} />
+      <Sfx name="stamp" at={yourAt} />
+      <Sfx name="counter" at={yourAt + 6} />
+      <Sfx name="stamp" at={decideAt} />
+      {OPTIONS.map(({ word, label }) => (
+        <Sfx key={label} name="pop" at={wordAt(o2, word)} />
+      ))}
+      <Sfx name="impact" at={discussAt} volume={0.4} />
+      <Sfx name="ding" at={discussAt + 4} />
+    </SceneShell>
   );
 };

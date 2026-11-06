@@ -1,15 +1,17 @@
 import React from "react";
 import { Composition } from "remotion";
 import { PDoomVideo } from "./Composition";
+import { FPS, TOTAL_FRAMES } from "./timeline";
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      {/* Länge wird aus dem Voiceover berechnet (src/timeline.ts) */}
       <Composition
         id="PDoom"
         component={PDoomVideo}
-        durationInFrames={1950}
-        fps={30}
+        durationInFrames={TOTAL_FRAMES}
+        fps={FPS}
         width={1920}
         height={1080}
         defaultProps={{
@@ -18,7 +20,6 @@ export const RemotionRoot: React.FC = () => {
             name: "Name Expert:in 1",
             role: "Funktion · Institution",
             pDoom: "XX %",
-            question: "Wie realistisch ist ein Kontrollverlust über KI?",
             trimBeforeSeconds: 0,
           },
           interview2: {
@@ -26,9 +27,10 @@ export const RemotionRoot: React.FC = () => {
             name: "Name Expert:in 2",
             role: "Funktion · Institution",
             pDoom: "XX %",
-            question: "Was kann die Politik gegen das Risiko tun?",
             trimBeforeSeconds: 0,
           },
+          untertitel: false,
+          musikLautstaerke: 1,
         }}
       />
     </>

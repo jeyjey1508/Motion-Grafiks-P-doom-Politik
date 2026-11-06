@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  Easing,
-  interpolate,
-  useCurrentFrame,
-  useVideoConfig,
-} from "remotion";
-import { COLORS, FONT, RADIUS, SAFE, SHADOW, TYPE, springIn } from "../theme";
+import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
+import { COLORS, FONT, SHADOW, SPRINGS } from "../theme";
+import { Sfx, useSpringAt } from "./kinetic";
 
 export type LowerThirdProps = {
   readonly name: string;
@@ -16,158 +12,116 @@ export type LowerThirdProps = {
   readonly typeSpeed?: number;
 };
 
+/** Balken, der von links aufgezogen wird (Masken-Reveal). */
+const Bar: React.FC<{
+  readonly progress: number;
+  readonly bg: string;
+  readonly children: React.ReactNode;
+  readonly style?: React.CSSProperties;
+}> = ({ progress, bg, children, style }) => (
+  <div
+    style={{
+      display: "inline-block",
+      clipPath: `inset(0 ${(1 - progress) * 100}% 0 0)`,
+      backgroundColor: bg,
+      boxShadow: SHADOW.card,
+      ...style,
+    }}
+  >
+    <div style={{ translate: `${(progress - 1) * 40}px 0px` }}>{children}</div>
+  </div>
+);
+
 /**
- * Bauchbinde mit Name, Funktion und getipptem P(doom)-Wert.
- * Gleitet weich von links herein und am Ende der umgebenden Sequenz
- * wieder hinaus. Die Länge der Sequenz bestimmt die Standzeit.
+ * Bauchbinde: Name, Funktion und ein getippter P(doom)-Wert in drei
+ * Farbbalken. Ein- und Ausfahrt richten sich nach der umgebenden Sequenz.
  */
-export const LowerThird: React.FC<LowerThirdProps> = ({
-  name,
-  role,
-  pDoom,
-  typeSpeed = 3,
-}) => {
+export const LowerThird: React.FC<LowerThirdProps> = ({ name, role, pDoom, typeSpeed = 3 }) => {
   const frame = useCurrentFrame();
-  const { fps, durationInFrames } = useVideoConfig();
+  const { durationInFrames } = useVideoConfig();
 
-  const enter = springIn({ frame, fps });
-  // Ausfahrt endet exakt mit der Sequenz.
-  const exit = springIn({
-    frame,
-    fps,
-    delay: durationInFrames - 20,
-    durationInFrames: 20,
+  const exitAt = durationInFrames - 16;
+  const exit = interpolate(frame, [exitAt, exitAt + 12], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
   });
-  const presence = enter - exit;
+  const nameIn = useSpringAt(0, SPRINGS.smooth, 18) - exit;
+  const roleIn = useSpringAt(6, SPRINGS.smooth, 18) - exit;
+  const badgeIn = useSpringAt(12, SPRINGS.smooth, 18) - exit;
 
-  const roleIn = springIn({ frame, fps, delay: 6 });
-  const badgeIn = springIn({ frame, fps, delay: 12 });
-
-  const typeStart = 20;
-  const typedChars = Math.max(
-    0,
-    Math.min(pDoom.length, Math.floor((frame - typeStart) / typeSpeed) + 1),
-  );
-  const typed = frame < typeStart ? "" : pDoom.slice(0, typedChars);
-  const typingDone = typedChars >= pDoom.length && frame >= typeStart;
-  const cursorVisible = !typingDone || Math.floor(frame / 15) % 2 === 0;
+  const typeStart = 24;
+  const typed = frame < typeStart ? "" : pDoom.slice(0, Math.floor((frame - typeStart) / typeSpeed) + 1);
+  const typingDone = typed.length >= pDoom.length;
+  const cursorOn = !typingDone || Math.floor(frame / 15) % 2 === 0;
 
   return (
     <div
       style={{
         position: "absolute",
-        left: SAFE.x,
-        bottom: SAFE.y,
+        left: 110,
+        bottom: 100,
         display: "flex",
-        alignItems: "stretch",
-        fontFamily: FONT.sans,
-        color: COLORS.ink,
-        opacity: presence,
-        translate: `${interpolate(presence, [0, 1], [-80, 0])}px 0px`,
+        alignItems: "flex-end",
+        gap: 18,
       }}
     >
-      <div
-        style={{
-          width: 8,
-          borderRadius: RADIUS.pill,
-          backgroundColor: COLORS.accent,
-          marginRight: 20,
-          scale: `1 ${interpolate(enter, [0, 1], [0, 1], {
-            easing: Easing.bezier(0.16, 1, 0.3, 1),
-          })}`,
-          transformOrigin: "bottom",
-        }}
-      />
-      <div
-        style={{
-          padding: "28px 40px 30px",
-          borderRadius: RADIUS.card,
-          backgroundColor: "rgba(20, 25, 35, 0.88)",
-          border: `1px solid ${COLORS.border}`,
-          boxShadow: SHADOW.card,
-          backdropFilter: "blur(12px)",
-          display: "flex",
-          alignItems: "center",
-          gap: 48,
-        }}
-      >
-        <div>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 10 }}>
+        <Bar progress={Math.max(0, nameIn)} bg={COLORS.ink} style={{ padding: "14px 30px 10px" }}>
           <div
             style={{
-              fontSize: 54,
-              fontWeight: 700,
-              letterSpacing: "-0.02em",
-              lineHeight: 1.1,
+              fontFamily: FONT.display,
+              fontSize: 72,
+              lineHeight: 1,
+              textTransform: "uppercase",
+              color: COLORS.bg,
+              whiteSpace: "nowrap",
             }}
           >
             {name}
           </div>
+        </Bar>
+        <Bar progress={Math.max(0, roleIn)} bg={COLORS.panel} style={{ padding: "12px 30px" }}>
           <div
             style={{
-              marginTop: 8,
-              fontSize: TYPE.label,
-              fontWeight: 500,
-              color: COLORS.inkSecondary,
-              opacity: roleIn,
-              translate: `0px ${interpolate(roleIn, [0, 1], [10, 0])}px`,
+              fontFamily: FONT.sans,
+              fontSize: 34,
+              fontWeight: 800,
+              color: COLORS.inkSoft,
+              whiteSpace: "nowrap",
             }}
           >
             {role}
           </div>
-        </div>
+        </Bar>
+      </div>
+      <Bar progress={Math.max(0, badgeIn)} bg={COLORS.red} style={{ padding: "14px 30px 16px" }}>
         <div
           style={{
-            alignSelf: "stretch",
-            width: 1,
-            backgroundColor: COLORS.borderStrong,
-            opacity: badgeIn,
-          }}
-        />
-        <div
-          style={{
-            opacity: badgeIn,
-            translate: `${interpolate(badgeIn, [0, 1], [20, 0])}px 0px`,
+            fontFamily: FONT.sans,
+            fontSize: 26,
+            fontWeight: 900,
+            letterSpacing: "0.12em",
+            color: COLORS.ink,
           }}
         >
-          <div
-            style={{
-              fontSize: TYPE.meta,
-              fontWeight: 600,
-              letterSpacing: "0.06em",
-              color: COLORS.inkSecondary,
-            }}
-          >
-            P(doom)
-          </div>
-          <div
-            style={{
-              marginTop: 6,
-              fontFamily: FONT.mono,
-              fontSize: 56,
-              fontWeight: 700,
-              lineHeight: 1.1,
-              color: COLORS.ink,
-              whiteSpace: "pre",
-              // Platz für den vollständigen Wert reservieren, damit die Box
-              // beim Tippen nicht wächst.
-              minWidth: `${pDoom.length + 1}ch`,
-            }}
-          >
-            {typed}
-            <span
-              style={{
-                display: "inline-block",
-                width: "0.08em",
-                height: "0.9em",
-                marginLeft: "0.06em",
-                translate: "0px 0.12em",
-                backgroundColor: COLORS.accent,
-                opacity: cursorVisible ? 1 : 0,
-              }}
-            />
-          </div>
+          P(doom)
         </div>
-      </div>
+        <div
+          style={{
+            fontFamily: FONT.display,
+            fontSize: 84,
+            lineHeight: 1,
+            color: COLORS.ink,
+            whiteSpace: "pre",
+            minWidth: `${(pDoom.length + 1) * 0.5}em`,
+          }}
+        >
+          {typed}
+          <span style={{ opacity: cursorOn ? 1 : 0 }}>|</span>
+        </div>
+      </Bar>
+      <Sfx name="whoosh-soft" at={0} />
+      <Sfx name="pop" at={typeStart} volume={0.25} />
     </div>
   );
 };

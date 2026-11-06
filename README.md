@@ -1,6 +1,6 @@
 # Motion-Grafiks: P(doom) – Politik
 
-Remotion-Unterrichtsvideo „P(doom) – Die Überlebenswahrscheinlichkeit im KI-Zeitalter“.
+Remotion-Erklär-Clip „P(doom) – Die Überlebenswahrscheinlichkeit im KI-Zeitalter“ fürs Politik-Fach: deutsches Voiceover, Soundeffekte, Musik, kinetische Typografie und zwei Interview-Slots.
 
 Das Projekt liegt im Ordner [`p-doom-politik/`](p-doom-politik/README.md):
 

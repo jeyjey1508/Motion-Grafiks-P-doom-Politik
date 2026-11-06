@@ -1,14 +1,22 @@
+import { linearTiming, TransitionSeries, type TransitionPresentation } from "@remotion/transitions";
+import { fade } from "@remotion/transitions/fade";
+import { slide } from "@remotion/transitions/slide";
+import { wipe } from "@remotion/transitions/wipe";
 import React from "react";
-import { AbsoluteFill, Sequence, Track } from "remotion";
+import { AbsoluteFill, Easing, Sequence } from "remotion";
 import { AlignmentFlow } from "./components/AlignmentFlow";
-import { Background } from "./components/Background";
+import { MusicBed, Subtitles, TransitionWhooshes, VoiceoverTrack } from "./components/AudioMix";
 import { ExpertChart } from "./components/ExpertChart";
 import { InterviewBlock } from "./components/InterviewBlock";
 import { LowerThird } from "./components/LowerThird";
 import { SplitScreen } from "./components/SplitScreen";
-import { IntroScene } from "./scenes/IntroScene";
+import { DefinitionScene } from "./scenes/DefinitionScene";
+import { EuScene } from "./scenes/EuScene";
+import { HookScene } from "./scenes/HookScene";
 import { OutroScene } from "./scenes/OutroScene";
 import { TeaserScene } from "./scenes/TeaserScene";
+import { COLORS } from "./theme";
+import { SCENES, TRANSITION_FRAMES } from "./timeline";
 
 export type InterviewConfig = {
   /** Dateiname in public/interviews/ */
@@ -17,8 +25,6 @@ export type InterviewConfig = {
   readonly role: string;
   /** Getippter Wert in der Bauchbinde, z. B. "10–20 %" */
   readonly pDoom: string;
-  /** Leitfrage auf der Teaser-Card */
-  readonly question: string;
   /** Sekunden, die am Anfang der Videodatei übersprungen werden */
   readonly trimBeforeSeconds: number;
 };
@@ -26,100 +32,136 @@ export type InterviewConfig = {
 export type PDoomVideoProps = {
   readonly interview1: InterviewConfig;
   readonly interview2: InterviewConfig;
+  /** Sprechertext als Untertitel einblenden */
+  readonly untertitel: boolean;
+  /** Lautstärke der Hintergrundmusik (0 bis 1, Standard 1) */
+  readonly musikLautstaerke: number;
 };
 
+const timing = linearTiming({
+  durationInFrames: TRANSITION_FRAMES,
+  easing: Easing.bezier(0.65, 0, 0.35, 1),
+});
+
+// Generisch typisierte Präsentationen für TransitionSeries
+const t = (p: TransitionPresentation<Record<string, unknown>>) => p;
+
 /**
- * Hauptkomposition "P(doom) – Die Überlebenswahrscheinlichkeit im KI-Zeitalter".
- * Die Frame-Angaben entsprechen exakt dem Szenenplan.
+ * Hauptkomposition. Szenenlängen kommen aus src/timeline.ts und richten
+ * sich nach dem Voiceover (scripts/generate_voiceover.py).
  */
 export const PDoomVideo: React.FC<PDoomVideoProps> = ({
   interview1,
   interview2,
+  untertitel,
+  musikLautstaerke,
 }) => {
   return (
-    <AbsoluteFill>
-      <Background />
+    <AbsoluteFill style={{ backgroundColor: COLORS.bg }}>
+      <TransitionSeries name="Szenen">
+        <TransitionSeries.Sequence name="Hook" durationInFrames={SCENES.hook.durationInFrames}>
+          <HookScene cues={SCENES.hook.cues} />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(slide({ direction: "from-bottom" }))} timing={timing} />
 
-      <Track name="Szenen">
-        {/* 0–150 (5 s): Intro & Definition mit Zähler */}
-        <Sequence name="Intro" durationInFrames={150}>
-          <IntroScene />
-        </Sequence>
+        <TransitionSeries.Sequence name="Definition" durationInFrames={SCENES.definition.durationInFrames}>
+          <DefinitionScene cues={SCENES.definition.cues} />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(slide({ direction: "from-right" }))} timing={timing} />
 
-        {/* 150–330 (6 s): Expertenskala */}
-        <Sequence name="Expertenskala" from={150} durationInFrames={180}>
-          <ExpertChart />
-        </Sequence>
+        <TransitionSeries.Sequence name="Expertenstreit" durationInFrames={SCENES.experts.durationInFrames}>
+          <ExpertChart cues={SCENES.experts.cues} />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(wipe({ direction: "from-right" }))} timing={timing} />
 
-        {/* 330–420 (3 s): Teaser Interview 1 */}
-        <Sequence name="Teaser Interview 1" from={330} durationInFrames={90}>
+        <TransitionSeries.Sequence name="Teaser Interview 1" durationInFrames={SCENES.teaser1.durationInFrames}>
           <TeaserScene
-            counter="1/2"
+            cues={SCENES.teaser1.cues}
+            cueId="t1"
+            words={[
+              { text: "Wer", spoken: "Wer" },
+              { text: "hat", spoken: "hat" },
+              { text: "recht?", spoken: "recht", color: COLORS.yellow },
+            ]}
+            cardWord="nachgefragt"
+            label="Interview 1"
             name={interview1.name}
             role={interview1.role}
-            question={interview1.question}
           />
-        </Sequence>
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(fade())} timing={timing} />
 
-        {/* 420–870 (15 s): Interview 1 mit Bauchbinde */}
-        <Sequence name="Interview 1" from={420} durationInFrames={450}>
+        <TransitionSeries.Sequence name="Interview 1" durationInFrames={SCENES.interview1.durationInFrames}>
           <InterviewBlock
             filename={interview1.filename}
             label="Interview 1"
             trimBeforeSeconds={interview1.trimBeforeSeconds}
           >
             <Sequence name="Bauchbinde 1" from={30} durationInFrames={180}>
-              <LowerThird
-                name={interview1.name}
-                role={interview1.role}
-                pDoom={interview1.pDoom}
-              />
+              <LowerThird name={interview1.name} role={interview1.role} pDoom={interview1.pDoom} />
             </Sequence>
           </InterviewBlock>
-        </Sequence>
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(slide({ direction: "from-right" }))} timing={timing} />
 
-        {/* 870–1050 (6 s): Alignment-Schaubild */}
-        <Sequence name="Alignment" from={870} durationInFrames={180}>
-          <AlignmentFlow />
-        </Sequence>
+        <TransitionSeries.Sequence name="Kontrollproblem" durationInFrames={SCENES.alignment.durationInFrames}>
+          <AlignmentFlow cues={SCENES.alignment.cues} />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(wipe({ direction: "from-bottom-right" }))} timing={timing} />
 
-        {/* 1050–1140 (3 s): Teaser Interview 2 */}
-        <Sequence name="Teaser Interview 2" from={1050} durationInFrames={90}>
+        <TransitionSeries.Sequence name="Teaser Interview 2" durationInFrames={SCENES.teaser2.durationInFrames}>
           <TeaserScene
-            counter="2/2"
+            cues={SCENES.teaser2.cues}
+            cueId="t2"
+            words={[
+              { text: "Kann", spoken: "Kann" },
+              { text: "Politik", spoken: "Politik", color: COLORS.yellow },
+              { text: "bremsen?", spoken: "bremsen" },
+            ]}
+            cardWord="Interview"
+            label="Interview 2"
             name={interview2.name}
             role={interview2.role}
-            question={interview2.question}
           />
-        </Sequence>
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(fade())} timing={timing} />
 
-        {/* 1140–1590 (15 s): Interview 2 mit Bauchbinde */}
-        <Sequence name="Interview 2" from={1140} durationInFrames={450}>
+        <TransitionSeries.Sequence name="Interview 2" durationInFrames={SCENES.interview2.durationInFrames}>
           <InterviewBlock
             filename={interview2.filename}
             label="Interview 2"
             trimBeforeSeconds={interview2.trimBeforeSeconds}
           >
             <Sequence name="Bauchbinde 2" from={30} durationInFrames={180}>
-              <LowerThird
-                name={interview2.name}
-                role={interview2.role}
-                pDoom={interview2.pDoom}
-              />
+              <LowerThird name={interview2.name} role={interview2.role} pDoom={interview2.pDoom} />
             </Sequence>
           </InterviewBlock>
-        </Sequence>
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(slide({ direction: "from-right" }))} timing={timing} />
 
-        {/* 1590–1770 (6 s): Regulierung vs. Gefangenendilemma */}
-        <Sequence name="SplitScreen" from={1590} durationInFrames={180}>
-          <SplitScreen />
-        </Sequence>
+        <TransitionSeries.Sequence name="Regulierung" durationInFrames={SCENES.eu.durationInFrames}>
+          <EuScene cues={SCENES.eu.cues} />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(slide({ direction: "from-bottom" }))} timing={timing} />
 
-        {/* 1770–1950 (6 s): Outro mit Diskussionsfragen */}
-        <Sequence name="Outro" from={1770} durationInFrames={180}>
-          <OutroScene />
-        </Sequence>
-      </Track>
+        <TransitionSeries.Sequence name="Wettrennen" durationInFrames={SCENES.race.durationInFrames}>
+          <SplitScreen cues={SCENES.race.cues} />
+        </TransitionSeries.Sequence>
+        <TransitionSeries.Transition presentation={t(wipe({ direction: "from-left" }))} timing={timing} />
+
+        <TransitionSeries.Sequence name="Outro" durationInFrames={SCENES.outro.durationInFrames}>
+          <OutroScene cues={SCENES.outro.cues} />
+        </TransitionSeries.Sequence>
+      </TransitionSeries>
+
+      <VoiceoverTrack />
+      <TransitionWhooshes />
+      <MusicBed
+        interview1File={interview1.filename}
+        interview2File={interview2.filename}
+        volume={musikLautstaerke}
+      />
+      {untertitel ? <Subtitles /> : null}
     </AbsoluteFill>
   );
 };

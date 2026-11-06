@@ -1,0 +1,1717 @@
+{
+  "voice": "de-DE-ConradNeural",
+  "rate": "+6%",
+  "scenes": [
+    {
+      "id": "hook",
+      "lines": [
+        {
+          "id": "h1",
+          "file": "audio/vo/hook-h1.mp3",
+          "fileSeconds": 5.088,
+          "start": 0.164,
+          "end": 4.396,
+          "seconds": 4.232,
+          "caption": "Wie wahrscheinlich ist es, dass künstliche Intelligenz die Menschheit auslöscht?",
+          "words": [
+            {
+              "text": "Wie",
+              "start": 0.097,
+              "end": 0.309
+            },
+            {
+              "text": "wahrscheinlich",
+              "start": 0.345,
+              "end": 0.934
+            },
+            {
+              "text": "ist",
+              "start": 0.982,
+              "end": 1.135
+            },
+            {
+              "text": "es",
+              "start": 1.159,
+              "end": 1.383
+            },
+            {
+              "text": "dass",
+              "start": 1.571,
+              "end": 1.748
+            },
+            {
+              "text": "künstliche",
+              "start": 1.807,
+              "end": 2.267
+            },
+            {
+              "text": "Intelligenz",
+              "start": 2.338,
+              "end": 2.963
+            },
+            {
+              "text": "die",
+              "start": 3.01,
+              "end": 3.081
+            },
+            {
+              "text": "Menschheit",
+              "start": 3.116,
+              "end": 3.588
+            },
+            {
+              "text": "auslöscht",
+              "start": 3.659,
+              "end": 4.189
+            }
+          ],
+          "hash": "e4496fe8f2c2"
+        },
+        {
+          "id": "h2",
+          "file": "audio/vo/hook-h2.mp3",
+          "fileSeconds": 2.184,
+          "start": 0.154,
+          "end": 1.501,
+          "seconds": 1.347,
+          "caption": "Klingt nach Science-Fiction.",
+          "words": [
+            {
+              "text": "Klingt",
+              "start": 0.097,
+              "end": 0.392
+            },
+            {
+              "text": "nach",
+              "start": 0.404,
+              "end": 0.545
+            },
+            {
+              "text": "Science-Fiction",
+              "start": 0.64,
+              "end": 1.347
+            }
+          ],
+          "hash": "1927a405ace6"
+        },
+        {
+          "id": "h3",
+          "file": "audio/vo/hook-h3.mp3",
+          "fileSeconds": 3.504,
+          "start": 0.162,
+          "end": 2.743,
+          "seconds": 2.581,
+          "caption": "Aber führende Forscher geben darauf eine Zahl an.",
+          "words": [
+            {
+              "text": "Aber",
+              "start": 0.097,
+              "end": 0.368
+            },
+            {
+              "text": "führende",
+              "start": 0.392,
+              "end": 0.746
+            },
+            {
+              "text": "Forscher",
+              "start": 0.758,
+              "end": 1.135
+            },
+            {
+              "text": "geben",
+              "start": 1.194,
+              "end": 1.442
+            },
+            {
+              "text": "darauf",
+              "start": 1.465,
+              "end": 1.783
+            },
+            {
+              "text": "eine",
+              "start": 1.842,
+              "end": 2.008
+            },
+            {
+              "text": "Zahl",
+              "start": 2.055,
+              "end": 2.314
+            },
+            {
+              "text": "an",
+              "start": 2.361,
+              "end": 2.526
+            }
+          ],
+          "hash": "7ef44e3a313e"
+        },
+        {
+          "id": "h4",
+          "file": "audio/vo/hook-h4.mp3",
+          "fileSeconds": 2.16,
+          "start": 0.158,
+          "end": 1.4,
+          "seconds": 1.242,
+          "caption": "Ihr Name: P(doom).",
+          "words": [
+            {
+              "text": "Ihr",
+              "start": 0.097,
+              "end": 0.262
+            },
+            {
+              "text": "Name",
+              "start": 0.286,
+              "end": 0.604
+            },
+            {
+              "text": "Pi-Duhm",
+              "start": 0.817,
+              "end": 1.217
+            }
+          ],
+          "hash": "66f76868045f"
+        }
+      ]
+    },
+    {
+      "id": "definition",
+      "lines": [
+        {
+          "id": "d1",
+          "file": "audio/vo/definition-d1.mp3",
+          "fileSeconds": 2.496,
+          "start": 0.149,
+          "end": 1.82,
+          "seconds": 1.671,
+          "caption": "P steht für Wahrscheinlichkeit.",
+          "words": [
+            {
+              "text": "P",
+              "start": 0.097,
+              "end": 0.239
+            },
+            {
+              "text": "steht",
+              "start": 0.286,
+              "end": 0.498
+            },
+            {
+              "text": "für",
+              "start": 0.533,
+              "end": 0.675
+            },
+            {
+              "text": "Wahrscheinlichkeit",
+              "start": 0.699,
+              "end": 1.559
+            }
+          ],
+          "hash": "5797ff4549a9"
+        },
+        {
+          "id": "d2",
+          "file": "audio/vo/definition-d2.mp3",
+          "fileSeconds": 2.088,
+          "start": 0.165,
+          "end": 1.326,
+          "seconds": 1.161,
+          "caption": "Doom für den Untergang.",
+          "words": [
+            {
+              "text": "Doom",
+              "start": 0.097,
+              "end": 0.357
+            },
+            {
+              "text": "für",
+              "start": 0.368,
+              "end": 0.486
+            },
+            {
+              "text": "den",
+              "start": 0.522,
+              "end": 0.64
+            },
+            {
+              "text": "Untergang",
+              "start": 0.687,
+              "end": 1.147
+            }
+          ],
+          "hash": "e7f352f121fb"
+        },
+        {
+          "id": "d3",
+          "file": "audio/vo/definition-d3.mp3",
+          "fileSeconds": 4.392,
+          "start": 0.157,
+          "end": 3.63,
+          "seconds": 3.473,
+          "caption": "Gemeint ist: Die Menschheit verliert dauerhaft die Kontrolle über KI.",
+          "words": [
+            {
+              "text": "Gemeint",
+              "start": 0.097,
+              "end": 0.439
+            },
+            {
+              "text": "ist",
+              "start": 0.486,
+              "end": 0.675
+            },
+            {
+              "text": "Die",
+              "start": 0.934,
+              "end": 0.993
+            },
+            {
+              "text": "Menschheit",
+              "start": 1.041,
+              "end": 1.442
+            },
+            {
+              "text": "verliert",
+              "start": 1.465,
+              "end": 1.795
+            },
+            {
+              "text": "dauerhaft",
+              "start": 1.819,
+              "end": 2.255
+            },
+            {
+              "text": "die",
+              "start": 2.255,
+              "end": 2.314
+            },
+            {
+              "text": "Kontrolle",
+              "start": 2.385,
+              "end": 2.786
+            },
+            {
+              "text": "über",
+              "start": 2.857,
+              "end": 3.01
+            },
+            {
+              "text": "KI",
+              "start": 3.057,
+              "end": 3.423
+            }
+          ],
+          "hash": "36cae7a6881d"
+        },
+        {
+          "id": "d4",
+          "file": "audio/vo/definition-d4.mp3",
+          "fileSeconds": 2.208,
+          "start": 0.172,
+          "end": 1.52,
+          "seconds": 1.348,
+          "caption": "Oder überlebt sie nicht.",
+          "words": [
+            {
+              "text": "Oder",
+              "start": 0.097,
+              "end": 0.404
+            },
+            {
+              "text": "überlebt",
+              "start": 0.486,
+              "end": 0.852
+            },
+            {
+              "text": "sie",
+              "start": 0.911,
+              "end": 0.993
+            },
+            {
+              "text": "nicht",
+              "start": 1.029,
+              "end": 1.265
+            }
+          ],
+          "hash": "6b51604c46a2"
+        }
+      ]
+    },
+    {
+      "id": "experts",
+      "lines": [
+        {
+          "id": "e1",
+          "file": "audio/vo/experts-e1.mp3",
+          "fileSeconds": 4.896,
+          "start": 0.155,
+          "end": 4.22,
+          "seconds": 4.065,
+          "caption": "Doch wie hoch ist dieses Risiko? Genau da beginnt der Streit.",
+          "words": [
+            {
+              "text": "Doch",
+              "start": 0.097,
+              "end": 0.309
+            },
+            {
+              "text": "wie",
+              "start": 0.321,
+              "end": 0.427
+            },
+            {
+              "text": "hoch",
+              "start": 0.475,
+              "end": 0.687
+            },
+            {
+              "text": "ist",
+              "start": 0.734,
+              "end": 0.875
+            },
+            {
+              "text": "dieses",
+              "start": 0.899,
+              "end": 1.194
+            },
+            {
+              "text": "Risiko",
+              "start": 1.229,
+              "end": 1.748
+            },
+            {
+              "text": "Genau",
+              "start": 2.642,
+              "end": 2.936
+            },
+            {
+              "text": "da",
+              "start": 2.995,
+              "end": 3.113
+            },
+            {
+              "text": "beginnt",
+              "start": 3.16,
+              "end": 3.443
+            },
+            {
+              "text": "der",
+              "start": 3.455,
+              "end": 3.561
+            },
+            {
+              "text": "Streit",
+              "start": 3.561,
+              "end": 3.962
+            }
+          ],
+          "hash": "528fc32e7816"
+        },
+        {
+          "id": "e2",
+          "file": "audio/vo/experts-e2.mp3",
+          "fileSeconds": 4.752,
+          "start": 0.168,
+          "end": 4.06,
+          "seconds": 3.892,
+          "caption": "Yann LeCun, Turing-Preisträger, winkt ab: unter ein Prozent.",
+          "words": [
+            {
+              "text": "Yann",
+              "start": 0.097,
+              "end": 0.404
+            },
+            {
+              "text": "LeCun",
+              "start": 0.416,
+              "end": 0.817
+            },
+            {
+              "text": "Turing-Preisträger",
+              "start": 1.029,
+              "end": 2.09
+            },
+            {
+              "text": "winkt",
+              "start": 2.267,
+              "end": 2.538
+            },
+            {
+              "text": "ab",
+              "start": 2.609,
+              "end": 2.739
+            },
+            {
+              "text": "unter",
+              "start": 2.927,
+              "end": 3.151
+            },
+            {
+              "text": "ein",
+              "start": 3.222,
+              "end": 3.328
+            },
+            {
+              "text": "Prozent",
+              "start": 3.364,
+              "end": 3.871
+            }
+          ],
+          "hash": "367d3c220e6c"
+        },
+        {
+          "id": "e3",
+          "file": "audio/vo/experts-e3.mp3",
+          "fileSeconds": 4.8,
+          "start": 0.163,
+          "end": 4.108,
+          "seconds": 3.945,
+          "caption": "Geoffrey Hinton, Nobelpreisträger, schätzt zehn bis zwanzig Prozent.",
+          "words": [
+            {
+              "text": "Geoffrey",
+              "start": 0.097,
+              "end": 0.475
+            },
+            {
+              "text": "Hinton",
+              "start": 0.51,
+              "end": 0.911
+            },
+            {
+              "text": "Nobelpreisträger",
+              "start": 1.041,
+              "end": 2.043
+            },
+            {
+              "text": "schätzt",
+              "start": 2.196,
+              "end": 2.538
+            },
+            {
+              "text": "zehn",
+              "start": 2.562,
+              "end": 2.774
+            },
+            {
+              "text": "bis",
+              "start": 2.821,
+              "end": 2.951
+            },
+            {
+              "text": "zwanzig",
+              "start": 3.022,
+              "end": 3.375
+            },
+            {
+              "text": "Prozent",
+              "start": 3.434,
+              "end": 3.93
+            }
+          ],
+          "hash": "7be5f42d8f21"
+        },
+        {
+          "id": "e4",
+          "file": "audio/vo/experts-e4.mp3",
+          "fileSeconds": 3.72,
+          "start": 0.164,
+          "end": 3.024,
+          "seconds": 2.86,
+          "caption": "Und Eliezer Yudkowsky warnt: über neunzig Prozent.",
+          "words": [
+            {
+              "text": "Und",
+              "start": 0.097,
+              "end": 0.274
+            },
+            {
+              "text": "Eliezer",
+              "start": 0.321,
+              "end": 0.663
+            },
+            {
+              "text": "Yudkowsky",
+              "start": 0.699,
+              "end": 1.217
+            },
+            {
+              "text": "warnt",
+              "start": 1.253,
+              "end": 1.618
+            },
+            {
+              "text": "über",
+              "start": 1.736,
+              "end": 1.913
+            },
+            {
+              "text": "neunzig",
+              "start": 1.949,
+              "end": 2.302
+            },
+            {
+              "text": "Prozent",
+              "start": 2.361,
+              "end": 2.821
+            }
+          ],
+          "hash": "e377f8a55129"
+        },
+        {
+          "id": "e5",
+          "file": "audio/vo/experts-e5.mp3",
+          "fileSeconds": 4.104,
+          "start": 0.155,
+          "end": 3.34,
+          "seconds": 3.185,
+          "caption": "Gleiche Technik. Völlig andere Prognosen.",
+          "words": [
+            {
+              "text": "Gleiche",
+              "start": 0.097,
+              "end": 0.463
+            },
+            {
+              "text": "Technik",
+              "start": 0.51,
+              "end": 0.899
+            },
+            {
+              "text": "Völlig",
+              "start": 1.804,
+              "end": 2.193
+            },
+            {
+              "text": "andere",
+              "start": 2.252,
+              "end": 2.559
+            },
+            {
+              "text": "Prognosen",
+              "start": 2.618,
+              "end": 3.149
+            }
+          ],
+          "hash": "2d15d066f32f"
+        }
+      ]
+    },
+    {
+      "id": "teaser1",
+      "lines": [
+        {
+          "id": "t1",
+          "file": "audio/vo/teaser1-t1.mp3",
+          "fileSeconds": 3.792,
+          "start": 0.162,
+          "end": 3.106,
+          "seconds": 2.944,
+          "caption": "Wer hat recht? Wir haben nachgefragt.",
+          "words": [
+            {
+              "text": "Wer",
+              "start": 0.097,
+              "end": 0.345
+            },
+            {
+              "text": "hat",
+              "start": 0.368,
+              "end": 0.522
+            },
+            {
+              "text": "recht",
+              "start": 0.557,
+              "end": 0.828
+            },
+            {
+              "text": "Wir",
+              "start": 1.745,
+              "end": 1.958
+            },
+            {
+              "text": "haben",
+              "start": 1.993,
+              "end": 2.217
+            },
+            {
+              "text": "nachgefragt",
+              "start": 2.241,
+              "end": 2.866
+            }
+          ],
+          "hash": "d77a0cba895e"
+        }
+      ]
+    },
+    {
+      "id": "alignment",
+      "lines": [
+        {
+          "id": "a1",
+          "file": "audio/vo/alignment-a1.mp3",
+          "fileSeconds": 5.256,
+          "start": 0.157,
+          "end": 4.515,
+          "seconds": 4.358,
+          "caption": "Das Kernproblem heißt Alignment: Verfolgt eine KI wirklich unsere Ziele?",
+          "words": [
+            {
+              "text": "Das",
+              "start": 0.097,
+              "end": 0.298
+            },
+            {
+              "text": "Kernproblem",
+              "start": 0.357,
+              "end": 0.923
+            },
+            {
+              "text": "heißt",
+              "start": 0.946,
+              "end": 1.206
+            },
+            {
+              "text": "Elainment",
+              "start": 1.253,
+              "end": 1.819
+            },
+            {
+              "text": "Verfolgt",
+              "start": 1.937,
+              "end": 2.408
+            },
+            {
+              "text": "eine",
+              "start": 2.479,
+              "end": 2.656
+            },
+            {
+              "text": "KI",
+              "start": 2.715,
+              "end": 3.057
+            },
+            {
+              "text": "wirklich",
+              "start": 3.092,
+              "end": 3.541
+            },
+            {
+              "text": "unsere",
+              "start": 3.611,
+              "end": 3.894
+            },
+            {
+              "text": "Ziele",
+              "start": 3.942,
+              "end": 4.342
+            }
+          ],
+          "hash": "a275da4a3e80"
+        },
+        {
+          "id": "a2",
+          "file": "audio/vo/alignment-a2.mp3",
+          "fileSeconds": 3.456,
+          "start": 0.163,
+          "end": 2.692,
+          "seconds": 2.529,
+          "caption": "Gib ihr eine harmlose Aufgabe: Hol Kaffee.",
+          "words": [
+            {
+              "text": "Gib",
+              "start": 0.097,
+              "end": 0.274
+            },
+            {
+              "text": "ihr",
+              "start": 0.333,
+              "end": 0.416
+            },
+            {
+              "text": "eine",
+              "start": 0.475,
+              "end": 0.651
+            },
+            {
+              "text": "harmlose",
+              "start": 0.687,
+              "end": 1.111
+            },
+            {
+              "text": "Aufgabe",
+              "start": 1.17,
+              "end": 1.736
+            },
+            {
+              "text": "Hol",
+              "start": 1.913,
+              "end": 2.102
+            },
+            {
+              "text": "Kaffee",
+              "start": 2.149,
+              "end": 2.491
+            }
+          ],
+          "hash": "01c4460a1037"
+        },
+        {
+          "id": "a3",
+          "file": "audio/vo/alignment-a3.mp3",
+          "fileSeconds": 6.72,
+          "start": 0.158,
+          "end": 5.941,
+          "seconds": 5.783,
+          "caption": "Abgeschaltet kann sie keinen Kaffee holen. Also hat sie einen Grund, ihr Abschalten zu verhindern.",
+          "words": [
+            {
+              "text": "Abgeschaltet",
+              "start": 0.097,
+              "end": 0.71
+            },
+            {
+              "text": "kann",
+              "start": 0.769,
+              "end": 0.934
+            },
+            {
+              "text": "sie",
+              "start": 0.946,
+              "end": 1.041
+            },
+            {
+              "text": "keinen",
+              "start": 1.111,
+              "end": 1.418
+            },
+            {
+              "text": "Kaffee",
+              "start": 1.442,
+              "end": 1.689
+            },
+            {
+              "text": "holen",
+              "start": 1.736,
+              "end": 2.055
+            },
+            {
+              "text": "Also",
+              "start": 2.983,
+              "end": 3.349
+            },
+            {
+              "text": "hat",
+              "start": 3.373,
+              "end": 3.502
+            },
+            {
+              "text": "sie",
+              "start": 3.561,
+              "end": 3.632
+            },
+            {
+              "text": "einen",
+              "start": 3.703,
+              "end": 3.915
+            },
+            {
+              "text": "Grund",
+              "start": 3.927,
+              "end": 4.281
+            },
+            {
+              "text": "ihr",
+              "start": 4.446,
+              "end": 4.564
+            },
+            {
+              "text": "Abschalten",
+              "start": 4.634,
+              "end": 5.118
+            },
+            {
+              "text": "zu",
+              "start": 5.13,
+              "end": 5.259
+            },
+            {
+              "text": "verhindern",
+              "start": 5.271,
+              "end": 5.778
+            }
+          ],
+          "hash": "f07bb9c98e11"
+        },
+        {
+          "id": "a4",
+          "file": "audio/vo/alignment-a4.mp3",
+          "fileSeconds": 3.432,
+          "start": 0.163,
+          "end": 2.743,
+          "seconds": 2.58,
+          "caption": "Forscher nennen das: instrumentelle Konvergenz.",
+          "words": [
+            {
+              "text": "Forscher",
+              "start": 0.097,
+              "end": 0.51
+            },
+            {
+              "text": "nennen",
+              "start": 0.545,
+              "end": 0.781
+            },
+            {
+              "text": "das",
+              "start": 0.805,
+              "end": 1.088
+            },
+            {
+              "text": "instrumentelle",
+              "start": 1.217,
+              "end": 1.901
+            },
+            {
+              "text": "Konvergenz",
+              "start": 1.949,
+              "end": 2.55
+            }
+          ],
+          "hash": "ab9496be8681"
+        },
+        {
+          "id": "a5",
+          "file": "audio/vo/alignment-a5.mp3",
+          "fileSeconds": 4.512,
+          "start": 0.164,
+          "end": 3.74,
+          "seconds": 3.576,
+          "caption": "Und merkt sie, dass sie getestet wird, könnte sie sich einfach verstellen.",
+          "words": [
+            {
+              "text": "Und",
+              "start": 0.097,
+              "end": 0.298
+            },
+            {
+              "text": "merkt",
+              "start": 0.321,
+              "end": 0.581
+            },
+            {
+              "text": "sie",
+              "start": 0.628,
+              "end": 0.781
+            },
+            {
+              "text": "dass",
+              "start": 0.982,
+              "end": 1.099
+            },
+            {
+              "text": "sie",
+              "start": 1.1,
+              "end": 1.182
+            },
+            {
+              "text": "getestet",
+              "start": 1.241,
+              "end": 1.677
+            },
+            {
+              "text": "wird",
+              "start": 1.713,
+              "end": 1.949
+            },
+            {
+              "text": "könnte",
+              "start": 2.161,
+              "end": 2.361
+            },
+            {
+              "text": "sie",
+              "start": 2.385,
+              "end": 2.479
+            },
+            {
+              "text": "sich",
+              "start": 2.515,
+              "end": 2.703
+            },
+            {
+              "text": "einfach",
+              "start": 2.774,
+              "end": 3.092
+            },
+            {
+              "text": "verstellen",
+              "start": 3.104,
+              "end": 3.576
+            }
+          ],
+          "hash": "9856fc8e5382"
+        }
+      ]
+    },
+    {
+      "id": "teaser2",
+      "lines": [
+        {
+          "id": "t2",
+          "file": "audio/vo/teaser2-t2.mp3",
+          "fileSeconds": 5.496,
+          "start": 0.153,
+          "end": 4.748,
+          "seconds": 4.595,
+          "caption": "Kann die Politik das Risiko überhaupt bremsen? Interview Nummer zwei.",
+          "words": [
+            {
+              "text": "Kann",
+              "start": 0.097,
+              "end": 0.298
+            },
+            {
+              "text": "die",
+              "start": 0.321,
+              "end": 0.38
+            },
+            {
+              "text": "Politik",
+              "start": 0.451,
+              "end": 0.875
+            },
+            {
+              "text": "das",
+              "start": 0.946,
+              "end": 1.135
+            },
+            {
+              "text": "Risiko",
+              "start": 1.159,
+              "end": 1.607
+            },
+            {
+              "text": "überhaupt",
+              "start": 1.666,
+              "end": 2.102
+            },
+            {
+              "text": "bremsen",
+              "start": 2.173,
+              "end": 2.585
+            },
+            {
+              "text": "Interview",
+              "start": 3.479,
+              "end": 3.927
+            },
+            {
+              "text": "Nummer",
+              "start": 3.962,
+              "end": 4.163
+            },
+            {
+              "text": "zwei",
+              "start": 4.21,
+              "end": 4.493
+            }
+          ],
+          "hash": "1345603f713a"
+        }
+      ]
+    },
+    {
+      "id": "eu",
+      "lines": [
+        {
+          "id": "r1",
+          "file": "audio/vo/eu-r1.mp3",
+          "fileSeconds": 2.352,
+          "start": 0.162,
+          "end": 1.61,
+          "seconds": 1.448,
+          "caption": "Die EU sagt: Ja.",
+          "words": [
+            {
+              "text": "Die",
+              "start": 0.097,
+              "end": 0.262
+            },
+            {
+              "text": "EU",
+              "start": 0.345,
+              "end": 0.581
+            },
+            {
+              "text": "sagt",
+              "start": 0.616,
+              "end": 0.958
+            },
+            {
+              "text": "Ja",
+              "start": 1.147,
+              "end": 1.406
+            }
+          ],
+          "hash": "c373c85567f5"
+        },
+        {
+          "id": "r2",
+          "file": "audio/vo/eu-r2.mp3",
+          "fileSeconds": 4.896,
+          "start": 0.156,
+          "end": 4.165,
+          "seconds": 4.009,
+          "caption": "Seit August 2024 gilt die europäische KI-Verordnung.",
+          "words": [
+            {
+              "text": "Seit",
+              "start": 0.097,
+              "end": 0.404
+            },
+            {
+              "text": "August 2024",
+              "start": 0.463,
+              "end": 2.255
+            },
+            {
+              "text": "gilt",
+              "start": 2.314,
+              "end": 2.491
+            },
+            {
+              "text": "die",
+              "start": 2.515,
+              "end": 2.585
+            },
+            {
+              "text": "europäische",
+              "start": 2.656,
+              "end": 3.21
+            },
+            {
+              "text": "KI-Verordnung",
+              "start": 3.258,
+              "end": 4.012
+            }
+          ],
+          "hash": "0b55b35b44c4"
+        },
+        {
+          "id": "r3",
+          "file": "audio/vo/eu-r3.mp3",
+          "fileSeconds": 7.608,
+          "start": 0.145,
+          "end": 6.839,
+          "seconds": 6.694,
+          "caption": "Sie sortiert KI nach Risiko. Manches ist verboten, Hochrisiko-Systeme müssen strenge Auflagen erfüllen.",
+          "words": [
+            {
+              "text": "Sie",
+              "start": 0.097,
+              "end": 0.286
+            },
+            {
+              "text": "sortiert",
+              "start": 0.321,
+              "end": 0.675
+            },
+            {
+              "text": "KI",
+              "start": 0.758,
+              "end": 1.041
+            },
+            {
+              "text": "nach",
+              "start": 1.088,
+              "end": 1.276
+            },
+            {
+              "text": "Risiko",
+              "start": 1.288,
+              "end": 1.76
+            },
+            {
+              "text": "Manches",
+              "start": 2.7,
+              "end": 3.16
+            },
+            {
+              "text": "ist",
+              "start": 3.208,
+              "end": 3.314
+            },
+            {
+              "text": "verboten",
+              "start": 3.349,
+              "end": 3.891
+            },
+            {
+              "text": "Hochrisiko-Systeme",
+              "start": 4.021,
+              "end": 5.083
+            },
+            {
+              "text": "müssen",
+              "start": 5.118,
+              "end": 5.389
+            },
+            {
+              "text": "strenge",
+              "start": 5.401,
+              "end": 5.731
+            },
+            {
+              "text": "Auflagen",
+              "start": 5.79,
+              "end": 6.262
+            },
+            {
+              "text": "erfüllen",
+              "start": 6.297,
+              "end": 6.663
+            }
+          ],
+          "hash": "790e8e61f7e4"
+        },
+        {
+          "id": "r4",
+          "file": "audio/vo/eu-r4.mp3",
+          "fileSeconds": 4.248,
+          "start": 0.161,
+          "end": 3.493,
+          "seconds": 3.332,
+          "caption": "Bei Verstößen drohen bis zu 35 Millionen Euro Strafe.",
+          "words": [
+            {
+              "text": "Bei",
+              "start": 0.097,
+              "end": 0.286
+            },
+            {
+              "text": "Verstößen",
+              "start": 0.321,
+              "end": 0.84
+            },
+            {
+              "text": "drohen",
+              "start": 0.864,
+              "end": 1.123
+            },
+            {
+              "text": "bis",
+              "start": 1.159,
+              "end": 1.265
+            },
+            {
+              "text": "zu",
+              "start": 1.335,
+              "end": 1.442
+            },
+            {
+              "text": "fünfunddreißig",
+              "start": 1.465,
+              "end": 2.09
+            },
+            {
+              "text": "Millionen",
+              "start": 2.125,
+              "end": 2.538
+            },
+            {
+              "text": "Euro",
+              "start": 2.597,
+              "end": 2.809
+            },
+            {
+              "text": "Strafe",
+              "start": 2.821,
+              "end": 3.316
+            }
+          ],
+          "hash": "bc85369a8d19"
+        }
+      ]
+    },
+    {
+      "id": "race",
+      "lines": [
+        {
+          "id": "g1",
+          "file": "audio/vo/race-g1.mp3",
+          "fileSeconds": 5.232,
+          "start": 0.167,
+          "end": 4.466,
+          "seconds": 4.299,
+          "caption": "Aber die meisten der stärksten KI-Systeme entstehen in den USA und in China.",
+          "words": [
+            {
+              "text": "Aber",
+              "start": 0.097,
+              "end": 0.309
+            },
+            {
+              "text": "die",
+              "start": 0.357,
+              "end": 0.416
+            },
+            {
+              "text": "meisten",
+              "start": 0.451,
+              "end": 0.817
+            },
+            {
+              "text": "der",
+              "start": 0.84,
+              "end": 0.958
+            },
+            {
+              "text": "stärksten",
+              "start": 0.958,
+              "end": 1.453
+            },
+            {
+              "text": "KI-Systeme",
+              "start": 1.489,
+              "end": 2.255
+            },
+            {
+              "text": "entstehen",
+              "start": 2.314,
+              "end": 2.75
+            },
+            {
+              "text": "in",
+              "start": 2.798,
+              "end": 2.892
+            },
+            {
+              "text": "den",
+              "start": 2.927,
+              "end": 3.069
+            },
+            {
+              "text": "USA",
+              "start": 3.116,
+              "end": 3.564
+            },
+            {
+              "text": "und",
+              "start": 3.623,
+              "end": 3.765
+            },
+            {
+              "text": "in",
+              "start": 3.812,
+              "end": 3.906
+            },
+            {
+              "text": "China",
+              "start": 3.942,
+              "end": 4.295
+            }
+          ],
+          "hash": "313c9825d0bf"
+        },
+        {
+          "id": "g2",
+          "file": "audio/vo/race-g2.mp3",
+          "fileSeconds": 2.88,
+          "start": 0.157,
+          "end": 2.106,
+          "seconds": 1.949,
+          "caption": "Und die beiden liefern sich ein Wettrennen.",
+          "words": [
+            {
+              "text": "Und",
+              "start": 0.097,
+              "end": 0.274
+            },
+            {
+              "text": "die",
+              "start": 0.286,
+              "end": 0.357
+            },
+            {
+              "text": "beiden",
+              "start": 0.416,
+              "end": 0.675
+            },
+            {
+              "text": "liefern",
+              "start": 0.699,
+              "end": 1.005
+            },
+            {
+              "text": "sich",
+              "start": 1.017,
+              "end": 1.194
+            },
+            {
+              "text": "ein",
+              "start": 1.253,
+              "end": 1.383
+            },
+            {
+              "text": "Wettrennen",
+              "start": 1.418,
+              "end": 1.949
+            }
+          ],
+          "hash": "3be975f3835b"
+        },
+        {
+          "id": "g3",
+          "file": "audio/vo/race-g3.mp3",
+          "fileSeconds": 2.664,
+          "start": 0.171,
+          "end": 1.904,
+          "seconds": 1.733,
+          "caption": "Ein klassisches Gefangenendilemma:",
+          "words": [
+            {
+              "text": "Ein",
+              "start": 0.097,
+              "end": 0.357
+            },
+            {
+              "text": "klassisches",
+              "start": 0.392,
+              "end": 0.875
+            },
+            {
+              "text": "Gefangenendilemma",
+              "start": 0.934,
+              "end": 1.713
+            }
+          ],
+          "hash": "be9a9c479c16"
+        },
+        {
+          "id": "g4",
+          "file": "audio/vo/race-g4.mp3",
+          "fileSeconds": 3.264,
+          "start": 0.158,
+          "end": 2.497,
+          "seconds": 2.339,
+          "caption": "Würden beide bremsen, wären alle sicherer.",
+          "words": [
+            {
+              "text": "Würden",
+              "start": 0.097,
+              "end": 0.427
+            },
+            {
+              "text": "beide",
+              "start": 0.475,
+              "end": 0.699
+            },
+            {
+              "text": "bremsen",
+              "start": 0.746,
+              "end": 1.194
+            },
+            {
+              "text": "wären",
+              "start": 1.312,
+              "end": 1.63
+            },
+            {
+              "text": "alle",
+              "start": 1.689,
+              "end": 1.854
+            },
+            {
+              "text": "sicherer",
+              "start": 1.878,
+              "end": 2.314
+            }
+          ],
+          "hash": "5f82c41989b6"
+        },
+        {
+          "id": "g5",
+          "file": "audio/vo/race-g5.mp3",
+          "fileSeconds": 4.824,
+          "start": 0.153,
+          "end": 4.065,
+          "seconds": 3.912,
+          "caption": "Doch wer allein bremst, fällt zurück. Also rasen beide.",
+          "words": [
+            {
+              "text": "Doch",
+              "start": 0.097,
+              "end": 0.274
+            },
+            {
+              "text": "wer",
+              "start": 0.286,
+              "end": 0.427
+            },
+            {
+              "text": "allein",
+              "start": 0.475,
+              "end": 0.758
+            },
+            {
+              "text": "bremst",
+              "start": 0.805,
+              "end": 1.147
+            },
+            {
+              "text": "fällt",
+              "start": 1.324,
+              "end": 1.583
+            },
+            {
+              "text": "zurück",
+              "start": 1.583,
+              "end": 1.925
+            },
+            {
+              "text": "Also",
+              "start": 2.866,
+              "end": 3.184
+            },
+            {
+              "text": "rasen",
+              "start": 3.196,
+              "end": 3.491
+            },
+            {
+              "text": "beide",
+              "start": 3.538,
+              "end": 3.88
+            }
+          ],
+          "hash": "9a13fc72f904"
+        },
+        {
+          "id": "g6",
+          "file": "audio/vo/race-g6.mp3",
+          "fileSeconds": 3.384,
+          "start": 0.164,
+          "end": 2.689,
+          "seconds": 2.525,
+          "caption": "Regeln gegen Wettrennen: Wer setzt sich durch?",
+          "words": [
+            {
+              "text": "Regeln",
+              "start": 0.097,
+              "end": 0.533
+            },
+            {
+              "text": "gegen",
+              "start": 0.581,
+              "end": 0.793
+            },
+            {
+              "text": "Wettrennen",
+              "start": 0.828,
+              "end": 1.371
+            },
+            {
+              "text": "Wer",
+              "start": 1.489,
+              "end": 1.689
+            },
+            {
+              "text": "setzt",
+              "start": 1.713,
+              "end": 2.008
+            },
+            {
+              "text": "sich",
+              "start": 2.043,
+              "end": 2.161
+            },
+            {
+              "text": "durch",
+              "start": 2.22,
+              "end": 2.491
+            }
+          ],
+          "hash": "41b9a790307c"
+        }
+      ]
+    },
+    {
+      "id": "outro",
+      "lines": [
+        {
+          "id": "o1",
+          "file": "audio/vo/outro-o1.mp3",
+          "fileSeconds": 3.24,
+          "start": 0.163,
+          "end": 2.524,
+          "seconds": 2.361,
+          "caption": "Und jetzt ihr: Wie hoch ist euer P(doom)?",
+          "words": [
+            {
+              "text": "Und",
+              "start": 0.097,
+              "end": 0.274
+            },
+            {
+              "text": "jetzt",
+              "start": 0.309,
+              "end": 0.604
+            },
+            {
+              "text": "ihr",
+              "start": 0.663,
+              "end": 0.816
+            },
+            {
+              "text": "Wie",
+              "start": 1.005,
+              "end": 1.158
+            },
+            {
+              "text": "hoch",
+              "start": 1.217,
+              "end": 1.453
+            },
+            {
+              "text": "ist",
+              "start": 1.5,
+              "end": 1.666
+            },
+            {
+              "text": "euer",
+              "start": 1.725,
+              "end": 1.866
+            },
+            {
+              "text": "Pi-Duhm",
+              "start": 1.937,
+              "end": 2.361
+            }
+          ],
+          "hash": "3f9c1ceb7bee"
+        },
+        {
+          "id": "o2",
+          "file": "audio/vo/outro-o2.mp3",
+          "fileSeconds": 6.432,
+          "start": 0.171,
+          "end": 5.681,
+          "seconds": 5.51,
+          "caption": "Und wer sollte entscheiden, wie schnell KI entwickelt wird: Konzerne, Staaten oder alle gemeinsam?",
+          "words": [
+            {
+              "text": "Und",
+              "start": 0.097,
+              "end": 0.298
+            },
+            {
+              "text": "wer",
+              "start": 0.321,
+              "end": 0.498
+            },
+            {
+              "text": "sollte",
+              "start": 0.51,
+              "end": 0.793
+            },
+            {
+              "text": "entscheiden",
+              "start": 0.852,
+              "end": 1.43
+            },
+            {
+              "text": "wie",
+              "start": 1.524,
+              "end": 1.654
+            },
+            {
+              "text": "schnell",
+              "start": 1.701,
+              "end": 1.96
+            },
+            {
+              "text": "KI",
+              "start": 2.008,
+              "end": 2.338
+            },
+            {
+              "text": "entwickelt",
+              "start": 2.397,
+              "end": 2.798
+            },
+            {
+              "text": "wird",
+              "start": 2.821,
+              "end": 3.092
+            },
+            {
+              "text": "Konzerne",
+              "start": 3.293,
+              "end": 3.894
+            },
+            {
+              "text": "Staaten",
+              "start": 4.036,
+              "end": 4.472
+            },
+            {
+              "text": "oder",
+              "start": 4.543,
+              "end": 4.732
+            },
+            {
+              "text": "alle",
+              "start": 4.814,
+              "end": 4.956
+            },
+            {
+              "text": "gemeinsam",
+              "start": 5.003,
+              "end": 5.51
+            }
+          ],
+          "hash": "c0e7172acb18"
+        },
+        {
+          "id": "o3",
+          "file": "audio/vo/outro-o3.mp3",
+          "fileSeconds": 2.328,
+          "start": 0.154,
+          "end": 1.591,
+          "seconds": 1.437,
+          "caption": "Diskutiert es in der Klasse.",
+          "words": [
+            {
+              "text": "Diskutiert",
+              "start": 0.097,
+              "end": 0.616
+            },
+            {
+              "text": "es",
+              "start": 0.64,
+              "end": 0.746
+            },
+            {
+              "text": "in",
+              "start": 0.793,
+              "end": 0.864
+            },
+            {
+              "text": "der",
+              "start": 0.887,
+              "end": 0.97
+            },
+            {
+              "text": "Klasse",
+              "start": 1.017,
+              "end": 1.406
+            }
+          ],
+          "hash": "3306260880ee"
+        }
+      ]
+    }
+  ]
+}

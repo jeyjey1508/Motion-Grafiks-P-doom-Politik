@@ -12,6 +12,7 @@
     "@remotion/cli": "4.0.541",
     "@remotion/fonts": "4.0.541",
     "@remotion/media": "4.0.541",
+    "@remotion/transitions": "4.0.541",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "remotion": "4.0.541"
@@ -30,7 +31,9 @@
     "build": "remotion bundle",
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
-    "render": "remotion render PDoom out/p-doom.mp4"
+    "render": "remotion render PDoom out/p-doom.mp4",
+    "audio": "python3 scripts/generate_voiceover.py && python3 scripts/generate_sfx.py",
+    "voiceover": "python3 scripts/generate_voiceover.py"
   },
   "allowScripts": {
     "esbuild": false

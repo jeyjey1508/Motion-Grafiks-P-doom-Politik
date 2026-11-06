@@ -2,43 +2,55 @@ import React from "react";
 import {
   AbsoluteFill,
   interpolate,
+  random,
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { COLORS } from "../theme";
+import { COLORS, FONT } from "../theme";
 
 /**
- * Ruhiger, dunkler Hintergrund: feines Raster, ein sehr langsam
- * wandernder Lichtschein und eine Vignette. Läuft über das ganze Video.
+ * Szenen-Hintergrund: Vollfarbe, langsam treibende Lichtpunkte, weicher
+ * Lichtkegel und Vignette. Jede Szene bekommt ihren eigenen Farbton, damit
+ * Übergänge als echte Bildwechsel lesbar sind.
  */
-export const Background: React.FC = () => {
+export const SceneShell: React.FC<{
+  readonly seed: string;
+  readonly bg?: string;
+  readonly glow?: string;
+  /** Kamerafahrt (Zoom) über die Szene, 0 = aus */
+  readonly push?: number;
+  readonly children: React.ReactNode;
+}> = ({ seed, bg = COLORS.bg, glow = COLORS.blue, push = 0.04, children }) => {
   const frame = useCurrentFrame();
-  const { durationInFrames } = useVideoConfig();
+  const { durationInFrames, width, height } = useVideoConfig();
+
+  const scale = interpolate(frame, [0, durationInFrames], [1, 1 + push]);
 
   return (
-    <AbsoluteFill style={{ backgroundColor: COLORS.ground }}>
+    <AbsoluteFill style={{ backgroundColor: bg, overflow: "hidden", fontFamily: FONT.sans }}>
       <AbsoluteFill
         style={{
-          backgroundImage: [
-            "linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px)",
-            "linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)",
-          ].join(", "),
-          backgroundSize: "80px 80px",
+          background: `radial-gradient(1100px 800px at 50% 40%, ${glow}2E, transparent 70%)`,
         }}
       />
-      <AbsoluteFill
-        style={{
-          background: `radial-gradient(900px 700px at ${interpolate(
-            frame,
-            [0, durationInFrames],
-            [30, 70],
-          )}% ${interpolate(frame, [0, durationInFrames], [35, 55])}%, rgba(224, 96, 46, 0.10), transparent 70%)`,
-        }}
-      />
+      <svg width={width} height={height} style={{ position: "absolute", inset: 0 }}>
+        {Array.from({ length: 46 }).map((_, i) => {
+          const x = random(`${seed}-x-${i}`) * width;
+          const y0 = random(`${seed}-y-${i}`) * height;
+          const speed = 0.15 + random(`${seed}-s-${i}`) * 0.35;
+          const y = (((y0 - frame * speed) % height) + height) % height;
+          const r = 1.5 + random(`${seed}-r-${i}`) * 2.5;
+          const twinkle =
+            0.25 + 0.35 * (0.5 + 0.5 * Math.sin(frame / 18 + i * 1.7));
+          return <circle key={i} cx={x} cy={y} r={r} fill="#FFFFFF" opacity={twinkle} />;
+        })}
+      </svg>
+      <AbsoluteFill style={{ scale: String(scale) }}>{children}</AbsoluteFill>
       <AbsoluteFill
         style={{
           background:
-            "radial-gradient(1200px 900px at 50% 50%, transparent 55%, rgba(0,0,0,0.55) 100%)",
+            "radial-gradient(1300px 900px at 50% 50%, transparent 60%, rgba(0,0,0,0.45) 100%)",
+          pointerEvents: "none",
         }}
       />
     </AbsoluteFill>

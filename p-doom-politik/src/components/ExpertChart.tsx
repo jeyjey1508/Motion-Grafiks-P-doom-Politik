@@ -1,287 +1,313 @@
 import React from "react";
-import { interpolate, useCurrentFrame, useVideoConfig } from "remotion";
-import { COLORS, FONT, RADIUS, TYPE, springIn } from "../theme";
-import { SceneFrame } from "./SceneFrame";
+import {
+  AbsoluteFill,
+  interpolate,
+  spring,
+  useCurrentFrame,
+  useVideoConfig,
+} from "remotion";
+import { COLORS, FONT, SPRINGS } from "../theme";
+import { cue, wordAt, type Cues } from "../timeline";
+import { SceneShell } from "./Background";
+import { Beat, CountUp, Headline, Kicker, Sfx, useProgress, useShake, useSpringAt } from "./kinetic";
+import { MetricCard } from "./MetricCard";
 
-export type ExpertPosition = {
-  readonly name: string;
-  readonly note: string;
-  /** Untere Grenze der Aussage in Prozent */
-  readonly min: number;
-  /** Obere Grenze der Aussage in Prozent */
-  readonly max: number;
-  /** "above" = mehr als min, "range" = min bis max, "below" = weniger als max */
-  readonly kind: "above" | "range" | "below";
+/* Geometrie des Risiko-Tachos */
+const CX = 560;
+const CY = 790;
+const R = 420;
+const STROKE = 62;
+
+const polar = (value: number, radius: number) => {
+  const theta = Math.PI - (value / 100) * Math.PI;
+  return { x: CX + radius * Math.cos(theta), y: CY - radius * Math.sin(theta) };
 };
 
-export const DEFAULT_EXPERTS: readonly ExpertPosition[] = [
+const arcPath = (from: number, to: number, radius: number) => {
+  const a = polar(from, radius);
+  const b = polar(to, radius);
+  const large = to - from > 50 ? 1 : 0;
+  return `M ${a.x} ${a.y} A ${radius} ${radius} 0 ${large} 1 ${b.x} ${b.y}`;
+};
+
+const ZONES = [
+  { from: 0, to: 25, color: COLORS.green },
+  { from: 25, to: 50, color: COLORS.yellow },
+  { from: 50, to: 75, color: COLORS.orange },
+  { from: 75, to: 100, color: COLORS.red },
+];
+
+type Expert = {
+  readonly cueId: string;
+  readonly name: string;
+  readonly role: string;
+  readonly nameWord: string;
+  readonly valueWord: string;
+  /** Zeigerposition (Prozent) */
+  readonly needle: number;
+  readonly marker: number;
+  readonly color: string;
+};
+
+const EXPERTS: readonly Expert[] = [
   {
-    name: "Eliezer Yudkowsky",
-    note: "KI-Sicherheitsforscher, MIRI",
-    min: 90,
-    max: 100,
-    kind: "above",
-  },
-  {
-    name: "Geoffrey Hinton / Sam Altman",
-    note: "Nobelpreisträger · CEO von OpenAI",
-    min: 10,
-    max: 20,
-    kind: "range",
-  },
-  {
+    cueId: "e2",
     name: "Yann LeCun",
-    note: "Turing-Preisträger, KI-Pionier",
-    min: 0,
-    max: 1,
-    kind: "below",
+    role: "Turing-Preisträger",
+    nameWord: "Yann",
+    valueWord: "unter",
+    needle: 1.5,
+    marker: 1,
+    color: COLORS.green,
+  },
+  {
+    cueId: "e3",
+    name: "Geoffrey Hinton",
+    role: "Nobelpreisträger",
+    nameWord: "Geoffrey",
+    valueWord: "zehn",
+    needle: 15,
+    marker: 15,
+    color: COLORS.yellow,
+  },
+  {
+    cueId: "e4",
+    name: "Eliezer Yudkowsky",
+    role: "KI-Sicherheitsforscher",
+    nameWord: "Eliezer",
+    valueWord: "über",
+    needle: 95,
+    marker: 95,
+    color: COLORS.red,
   },
 ];
 
-type Props = {
-  readonly items?: readonly ExpertPosition[];
-  readonly kicker?: string;
-  readonly title?: string;
-  readonly footnote?: string;
-};
-
-const LABEL_COL = 520;
-const PLOT_W = 960;
-const BAR_H = 48;
-const ROW_H = 172;
-const TICKS = [0, 25, 50, 75, 100];
-
-const formatLabel = (item: ExpertPosition, progress: number): string => {
-  if (item.kind === "above") {
-    return `> ${Math.round(item.min * progress)} %`;
-  }
-  if (item.kind === "range") {
-    return `${Math.round(item.min * progress)}–${Math.round(item.max * progress)} %`;
-  }
-  return `< ${item.max} %`;
-};
-
 /**
- * Horizontales Balkendiagramm der Expertenpositionen.
- * Eine Messgröße (P(doom)) → eine Farbe. Der schraffierte Abschnitt zeigt
- * die Spannweite bzw. die offene Grenze einer Aussage.
+ * Expertenstreit als Risiko-Tacho: Der Zeiger schlägt bei jeder genannten
+ * Schätzung aus, rechts erscheinen Name und Zahl.
  */
-export const ExpertChart: React.FC<Props> = ({
-  items = DEFAULT_EXPERTS,
-  kicker = "Expertenskala",
-  title = "Wie hoch schätzen führende KI-Köpfe P(doom)?",
-  footnote = "Vereinfachte Darstellung öffentlicher Aussagen (2023–2025). Persönliche Schätzungen, nicht direkt vergleichbar.",
-}) => {
+export const ExpertChart: React.FC<{ readonly cues: Cues }> = ({ cues }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const axisIn = springIn({ frame, fps, delay: 6 });
-  const keyIn = springIn({ frame, fps, delay: 70 });
+  const e1 = cue(cues, "e1");
+  const e5 = cue(cues, "e5");
+  const streitAt = wordAt(e1, "Streit");
 
-  const x = (value: number) => (value / 100) * PLOT_W;
+  const timings = EXPERTS.map((ex) => {
+    const c = cue(cues, ex.cueId);
+    return { ...ex, cue: c, nameAt: wordAt(c, ex.nameWord), valueAt: wordAt(c, ex.valueWord) };
+  });
+
+  // Zeiger: Summe von Federn zu jedem neuen Zielwert
+  const arcDraw = useProgress(2, 28);
+  let needle = 50 * spring({ frame: frame - (e1.from + 4), fps, config: SPRINGS.needle });
+  let previous = 50;
+  for (const t of timings) {
+    needle += (t.needle - previous) * spring({ frame: frame - t.valueAt, fps, config: SPRINGS.needle });
+    previous = t.needle;
+  }
+  // nervöses Zittern, solange die Frage offen ist
+  if (frame < timings[0].valueAt) {
+    needle += Math.sin(frame / 2.3) * 3;
+  }
+  const needleOpacity = interpolate(frame, [e5.from, e5.from + 10], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const tip = polar(Math.max(0, Math.min(100, needle)), R - 80);
+  const shake = useShake(timings[2].valueAt, 16);
+  const hintonBand = useSpringAt(timings[1].valueAt, SPRINGS.smooth);
+  const summary = useSpringAt(e5.from, SPRINGS.smooth);
 
   return (
-    <SceneFrame kicker={kicker} title={title}>
-      <div
-        style={{
-          position: "relative",
-          marginTop: 24,
-          fontFamily: FONT.sans,
-        }}
-      >
-        {/* Raster und Achse */}
+    <SceneShell seed="experts" glow={COLORS.orange} bg="#0E1124">
+      <AbsoluteFill style={{ translate: shake }}>
+        {/* Tacho */}
+        <svg width={1920} height={1080} style={{ position: "absolute", inset: 0 }}>
+          <path d={arcPath(0, 100, R)} fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth={STROKE + 22} />
+          {ZONES.map((z, i) => {
+            const len = (Math.PI * R * (z.to - z.from)) / 100;
+            const local = interpolate(arcDraw, [i / 4, (i + 1) / 4], [0, 1], {
+              extrapolateLeft: "clamp",
+              extrapolateRight: "clamp",
+            });
+            return (
+              <path
+                key={z.from}
+                d={arcPath(z.from + 0.4, z.to - 0.4, R)}
+                fill="none"
+                stroke={z.color}
+                strokeWidth={STROKE}
+                strokeDasharray={len}
+                strokeDashoffset={len * (1 - local)}
+              />
+            );
+          })}
+          {/* Hinton: Spanne 10–20 % */}
+          <path
+            d={arcPath(10, 20, R)}
+            fill="none"
+            stroke={COLORS.ink}
+            strokeWidth={STROKE + 22}
+            opacity={hintonBand * 0.35}
+          />
+          {[0, 25, 50, 75, 100].map((v) => {
+            const p = polar(v, R + STROKE / 2 + 44);
+            return (
+              <text
+                key={v}
+                x={p.x}
+                y={p.y + 12}
+                textAnchor="middle"
+                fontFamily="Inter, sans-serif"
+                fontWeight={800}
+                fontSize={32}
+                fill={COLORS.inkMuted}
+                opacity={arcDraw}
+              >
+                {v} %
+              </text>
+            );
+          })}
+          {/* Markierungen der Experten */}
+          {timings.map((t) => {
+            const s = spring({ frame: frame - t.valueAt - 6, fps, config: SPRINGS.pop });
+            const p = polar(t.marker, R);
+            const label = polar(t.marker, R - STROKE / 2 - 70);
+            return (
+              <g key={t.name} opacity={Math.min(1, s * 1.5)}>
+                <circle cx={p.x} cy={p.y} r={20 * s} fill={COLORS.ink} stroke={COLORS.bg} strokeWidth={6} />
+                <text
+                  x={label.x}
+                  y={label.y + 12}
+                  textAnchor={t.marker < 40 ? "start" : t.marker > 60 ? "end" : "middle"}
+                  fontFamily="Inter, sans-serif"
+                  fontWeight={900}
+                  fontSize={30 + summary * 6}
+                  fill={COLORS.ink}
+                  opacity={0.55 + summary * 0.45}
+                >
+                  {t.name.split(" ").slice(-1)[0]}
+                </text>
+              </g>
+            );
+          })}
+          {/* Zeiger */}
+          <g opacity={needleOpacity}>
+            <line
+              x1={CX}
+              y1={CY}
+              x2={tip.x}
+              y2={tip.y}
+              stroke={COLORS.ink}
+              strokeWidth={16}
+              strokeLinecap="round"
+            />
+            <circle cx={CX} cy={CY} r={38} fill={COLORS.ink} />
+            <circle cx={CX} cy={CY} r={15} fill={COLORS.bg} />
+          </g>
+        </svg>
         <div
           style={{
             position: "absolute",
-            left: LABEL_COL,
-            top: 0,
-            width: PLOT_W,
-            height: ROW_H * items.length,
-            opacity: axisIn,
+            left: CX,
+            top: CY + 70,
+            translate: "-50% 0px",
+            opacity: arcDraw,
           }}
         >
-          {TICKS.map((tick) => (
-            <div
-              key={tick}
-              style={{
-                position: "absolute",
-                left: x(tick),
-                top: 0,
-                bottom: 0,
-                width: 1,
-                backgroundColor:
-                  tick === 0 ? COLORS.borderStrong : COLORS.border,
-              }}
-            />
-          ))}
-          {TICKS.map((tick) => (
-            <div
-              key={`label-${tick}`}
-              style={{
-                position: "absolute",
-                left: x(tick),
-                top: ROW_H * items.length + 16,
-                translate: "-50% 0px",
-                fontFamily: FONT.mono,
-                fontSize: TYPE.meta,
-                color: COLORS.inkMuted,
-                whiteSpace: "nowrap",
-              }}
-            >
-              {tick} %
-            </div>
-          ))}
+          <Kicker color={COLORS.inkSoft}>Risiko-Tacho · P(doom)</Kicker>
         </div>
 
-        {items.map((item, i) => {
-          const delay = 18 + i * 12;
-          const grow = springIn({ frame, fps, delay });
-          const labelIn = springIn({ frame, fps, delay: delay + 6 });
-          const solidEnd = item.kind === "below" ? 0 : item.min;
-          const hatchStart = item.kind === "below" ? 0 : item.min;
-          const hatchEnd = item.max;
+        {/* Rechte Seite */}
+        <div style={{ position: "absolute", left: 1140, top: 250, width: 720 }}>
+          <Beat at={e1.from} out={timings[0].cue.from - 2} exit="up">
+            <Headline size={150}>Wie hoch?</Headline>
+          </Beat>
+          <Beat
+            at={streitAt}
+            out={timings[0].cue.from - 2}
+            enter="slam"
+            exit="up"
+            style={{ marginTop: 10 }}
+          >
+            <Headline size={200} color={COLORS.red}>
+              Streit!
+            </Headline>
+          </Beat>
+        </div>
 
+        {timings.map((t, i) => {
+          const next = timings[i + 1]?.cue.from ?? e5.from;
           return (
-            <div
-              key={item.name}
-              style={{
-                position: "relative",
-                height: ROW_H,
-                display: "flex",
-                alignItems: "center",
-              }}
-            >
-              {/* Name und Funktion */}
-              <div
-                style={{
-                  width: LABEL_COL - 40,
-                  opacity: labelIn,
-                  translate: `${interpolate(labelIn, [0, 1], [-24, 0])}px 0px`,
-                }}
-              >
+            <div key={t.name} style={{ position: "absolute", left: 1140, top: 230, width: 740 }}>
+              <Beat at={t.nameAt} out={next - 2} enter="right" exit="up">
+                <Headline size={t.name.length > 15 ? 96 : 110}>{t.name}</Headline>
                 <div
                   style={{
-                    fontSize: 42,
-                    fontWeight: 700,
-                    letterSpacing: "-0.01em",
-                    lineHeight: 1.15,
-                    color: COLORS.ink,
+                    marginTop: 12,
+                    fontFamily: FONT.sans,
+                    fontWeight: 800,
+                    fontSize: 38,
+                    color: COLORS.inkSoft,
                   }}
                 >
-                  {item.name}
+                  {t.role}
                 </div>
-                <div
-                  style={{
-                    marginTop: 6,
-                    fontSize: TYPE.meta,
-                    color: COLORS.inkSecondary,
-                  }}
-                >
-                  {item.note}
-                </div>
-              </div>
-
-              {/* Balken */}
-              <div
-                style={{
-                  position: "absolute",
-                  left: LABEL_COL,
-                  top: (ROW_H - BAR_H) / 2,
-                  width: PLOT_W,
-                  height: BAR_H,
-                }}
-              >
-                {solidEnd > 0 ? (
-                  <div
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      top: 0,
-                      height: BAR_H,
-                      width: x(solidEnd) * grow,
-                      backgroundColor: COLORS.accent,
-                      borderRadius:
-                        hatchEnd > solidEnd ? 0 : `0 6px 6px 0`,
-                    }}
-                  />
-                ) : null}
-                <div
-                  style={{
-                    position: "absolute",
-                    left: x(hatchStart) * grow + (solidEnd > 0 ? 2 : 0),
-                    top: 0,
-                    height: BAR_H,
-                    width: Math.max(
-                      0,
-                      x(hatchEnd - hatchStart) * grow - (solidEnd > 0 ? 2 : 0),
-                    ),
-                    minWidth: item.kind === "below" ? 6 * grow : undefined,
-                    borderRadius: "0 6px 6px 0",
-                    backgroundColor: COLORS.accentSoft,
-                    backgroundImage: `repeating-linear-gradient(135deg, ${COLORS.accent} 0px, ${COLORS.accent} 4px, transparent 4px, transparent 12px)`,
-                    // Schraffur wandert langsam: hält die Standphase lebendig
-                    backgroundPosition: `${frame * 0.4}px 0px`,
-                    boxShadow: `inset 0 0 0 2px ${COLORS.accent}`,
-                    opacity: interpolate(grow, [0, 0.4, 1], [0, 0.6, 1]),
-                  }}
-                />
-                {/* Wert an der Balkenspitze */}
-                <div
-                  style={{
-                    position: "absolute",
-                    left:
-                      Math.max(x(hatchEnd) * grow, item.kind === "below" ? 6 : 0) +
-                      24,
-                    top: "50%",
-                    translate: "0px -50%",
-                    fontFamily: FONT.mono,
-                    fontSize: 52,
-                    fontWeight: 700,
-                    color: COLORS.ink,
-                    whiteSpace: "nowrap",
-                    fontVariantNumeric: "tabular-nums",
-                    opacity: labelIn,
-                  }}
-                >
-                  {formatLabel(item, grow)}
-                </div>
-              </div>
+              </Beat>
+              <MetricCard
+                at={t.valueAt}
+                out={next - 2}
+                exit="up"
+                color={t.color}
+                valueSize={190}
+                style={{ marginTop: 34 }}
+                value={
+                  i === 0 ? (
+                    "< 1 %"
+                  ) : i === 1 ? (
+                    <>
+                      <CountUp at={t.valueAt} duration={18} to={10} />–
+                      <CountUp at={t.valueAt} duration={22} to={20} /> %
+                    </>
+                  ) : (
+                    <>
+                      {"> "}
+                      <CountUp at={t.valueAt} duration={24} to={90} /> %
+                    </>
+                  )
+                }
+              />
             </div>
           );
         })}
 
-        {/* Legende für die Schraffur und Quellenhinweis */}
-        <div
-          style={{
-            marginTop: 72,
-            display: "flex",
-            flexWrap: "wrap",
-            alignItems: "center",
-            columnGap: 40,
-            rowGap: 14,
-            opacity: keyIn,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-            <span
-              style={{
-                width: 44,
-                height: 22,
-                borderRadius: RADIUS.pill,
-                backgroundColor: COLORS.accentSoft,
-                backgroundImage: `repeating-linear-gradient(135deg, ${COLORS.accent} 0px, ${COLORS.accent} 4px, transparent 4px, transparent 12px)`,
-                boxShadow: `inset 0 0 0 2px ${COLORS.accent}`,
-              }}
-            />
-            <span style={{ fontSize: TYPE.meta, color: COLORS.inkSecondary }}>
-              Spannweite / offene Grenze
-            </span>
-          </div>
-          <span style={{ fontSize: TYPE.meta, color: COLORS.inkMuted }}>
-            {footnote}
-          </span>
+        <div style={{ position: "absolute", left: 1140, top: 230, width: 740 }}>
+          <Beat at={e5.from} enter="slam">
+            <Headline size={120}>Gleiche</Headline>
+            <Headline size={120}>Technik.</Headline>
+          </Beat>
+          <Beat at={wordAt(e5, "Völlig")} enter="slam" style={{ marginTop: 18 }}>
+            <Headline size={120} color={COLORS.yellow}>
+              Völlig andere
+            </Headline>
+            <Headline size={120} color={COLORS.yellow}>
+              Prognosen.
+            </Headline>
+          </Beat>
         </div>
-      </div>
-    </SceneFrame>
+      </AbsoluteFill>
+
+      <Sfx name="stamp" at={streitAt} />
+      {timings.map((t, i) => (
+        <React.Fragment key={t.name}>
+          <Sfx name="whoosh-soft" at={t.nameAt - 4} />
+          <Sfx name={i === 2 ? "impact" : "counter"} at={t.valueAt} volume={i === 2 ? 0.45 : undefined} />
+        </React.Fragment>
+      ))}
+      <Sfx name="pop" at={e5.from} />
+      <Sfx name="pop" at={wordAt(e5, "Völlig")} />
+    </SceneShell>
   );
 };
