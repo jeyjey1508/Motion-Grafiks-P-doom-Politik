@@ -100,7 +100,7 @@ export const OutroScene: React.FC<{ readonly cues: Cues }> = ({ cues }) => {
       {OPTIONS.map(({ word, label }) => (
         <Sfx key={label} name="pop" at={wordAt(o2, word)} />
       ))}
-      <Sfx name="impact" at={discussAt} volume={0.4} />
+      <Sfx name="impact" at={discussAt} volume={0.3} />
       <Sfx name="ding" at={discussAt + 4} />
     </SceneShell>
   );

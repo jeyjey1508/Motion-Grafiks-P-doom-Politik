@@ -231,7 +231,7 @@ export const AlignmentFlow: React.FC<{ readonly cues: Cues }> = ({ cues }) => {
         <Beat at={testAt} exit="up">
           <Kicker>Im Test: brav</Kicker>
         </Beat>
-        <Beat at={fakeAt} enter="slam" style={{ marginTop: 14 }}>
+        <Beat at={fakeAt} enter="slam" style={{ marginTop: 30 }}>
           <Headline
             size={165}
             color={COLORS.red}

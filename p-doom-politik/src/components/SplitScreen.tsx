@@ -365,7 +365,7 @@ export const SplitScreen: React.FC<{ readonly cues: Cues }> = ({ cues }) => {
       <Sfx name="ding" at={safeAt} volume={0.28} />
       <Sfx name="pop-low" at={behindAt} />
       <Sfx name="whoosh-soft" at={bothAt} />
-      <Sfx name="impact" at={bothAt + 6} volume={0.45} />
+      <Sfx name="impact" at={bothAt + 6} volume={0.32} />
       <Sfx name="whoosh" at={g6.from - 6} />
       <Sfx name="stamp" at={rulesAt} />
       <Sfx name="stamp" at={versusAt} />
