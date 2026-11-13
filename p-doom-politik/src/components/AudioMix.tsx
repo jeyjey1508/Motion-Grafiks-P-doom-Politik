@@ -42,8 +42,8 @@ export const VoiceoverTrack: React.FC = () => (
   </>
 );
 
-const MUSIC_BASE = 0.2;
-const MUSIC_DUCKED = 0.07;
+const MUSIC_BASE = 0.22;
+const MUSIC_DUCKED = 0.085;
 const DUCK_RAMP = 8;
 
 /** 0 = keine Sprache, 1 = Sprache läuft (mit weichen Rampen). */
@@ -107,7 +107,7 @@ export const MusicBed: React.FC<{
   return (
     <Audio
       name="Musik"
-      src={staticFile("audio/music/bed.mp3")}
+      src={staticFile("audio/bg-music.mp3")}
       loop
       volume={level * interviewFactor(frame, slots) * fades * volume}
     />
@@ -121,11 +121,11 @@ export const TransitionWhooshes: React.FC = () => (
       <Sequence
         key={id}
         name={`Übergang ${id}`}
-        from={Math.max(0, SCENES[id].from - 3)}
-        durationInFrames={24}
+        from={Math.max(0, SCENES[id].from - 6)}
+        durationInFrames={54}
         layout="none"
       >
-        <Audio src={staticFile("audio/sfx/whoosh.wav")} volume={0.28} />
+        <Audio src={staticFile("audio/sfx/whoosh-long.wav")} volume={0.26} />
       </Sequence>
     ))}
   </>
