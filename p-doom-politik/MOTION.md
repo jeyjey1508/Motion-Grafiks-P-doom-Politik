@@ -1,58 +1,51 @@
-# MOTION.md: P(doom) Erklär-Clip
+# MOTION.md: P(doom) Kurz-Doku
 
-Wird von den Skills in `.claude/skills/` vor jeder Animation gelesen. Alle Werte stehen als Code in `src/theme.ts` und `src/components/kinetic.tsx`.
+Gestaltungsregeln für diesen Film. Sie ersetzen die frühere, zurückhaltende Fassung: Hier wird groß, filmisch und in Bildern erzählt.
 
-## 1. Look
+## 1. Haltung
 
-Flacher, satter Erklär-Clip auf dunklem Nachtblau. Wenig Text, große Schlagworte, einfache Vektor-Metaphern (Roboter, Tacho, Raketen, Sternenkreis, Pyramide).
+- **Bilder statt Kästchen.** Jede Szene hat eine eigene visuelle Metapher (Globus, Risiko-Landschaft, Blackbox, Roboter, Labor, Pyramide, Weltkarte, Waage mit Getriebe, Reise in den Morgen). Keine Karten-Layouts, keine Dashboards.
+- **Die Stimme erklärt, das Bild zeigt.** Auf dem Bild stehen Schlagworte, Zahlen und kurze Marker, keine Sätze.
+- **Neutraler Doku-Ton.** Kein Schulbezug, keine direkte Ansprache einer Klasse. Quellen-Tags nur bei Zitaten und Umfragen, klein und am Rand.
 
-| Rolle | Hex | Verwendung |
-|---|---|---|
-| bg | `#0B0F1E` | Grundfläche (jede Szene hat eine eigene Abwandlung) |
-| panel | `#1B2244` | Karten, Zellen |
-| ink / inkSoft / inkMuted | `#FFFFFF` / `#C9CEE6` / `#7F87A8` | Text |
-| red | `#FF4B3E` | Untergang, Risiko, Täuschung |
-| orange | `#FF8A3D` | Kontrollverlust, Warnung |
-| yellow | `#FFD23F` | Hervorhebung, Zahlen, Fragen |
-| green | `#2EE59D` | Entwarnung, Sicherheit |
-| blue | `#3D8BFF` | KI/Roboter, USA |
-| violet | `#8F6BFF` | Interviews, Konzerne |
-| euBlue | `#1F4BD8` | EU |
+## 2. Bühne und Kamera (`src/stage/Stage.tsx`)
 
-## 2. Schrift
+- Jede Szene liegt in einer `Stage` mit Himmelsverlauf, Lichtschein, optional Sternen (weit hinten) und Staub (Vordergrund) plus Vignette.
+- Inhalte liegen in `Layer`-Ebenen mit `depth`: 0,1 bis 0,3 Hintergrund, 0,5 bis 0,8 Mittelgrund, 1 Hauptebene. Unterschiedliche Tiefen ergeben Parallax.
+- `useCam([...])` beschreibt die Kamerafahrt als Keyframes (`x`, `y`, `zoom`). Größere Szenen sind mehrere Bildschirme breit oder hoch; die Kamera schwenkt zwischen den Bildern, statt zu schneiden.
+- Typografie, die bei Zooms nicht aus dem Bild laufen darf, liegt in einer Ebene mit `depth` um 0,1 oder außerhalb der Ebenen.
 
-- **Anton** (Großbuchstaben) für Schlagworte, 100 bis 330 px.
-- **Inter** 800/900 für Dachzeilen und Labels, mindestens 30 px.
-- **JetBrains Mono** nur für Dateipfade.
-- Ein Bild, eine Botschaft: höchstens ein Schlagwort plus eine Dachzeile gleichzeitig im Fokus.
+## 3. Übergänge (`src/transitions.tsx`)
 
-## 3. Timing
+`push` (Kamera fährt hindurch), `pull` (zieht heraus), `pan` (schwenkt weiter), `dip` (kurz ins Schwarz), `fade` nur an den Interviews. 18 Frames, jeweils mit langem Whoosh.
 
-- Das Voiceover bestimmt das Tempo. Szenenlängen werden aus den Audiolängen berechnet (`src/timeline.ts`).
-- Bild-Beats landen auf dem gesprochenen Wort (`wordAt(cue, "Wort")`).
-- Übergänge: 16 Frames (Slide, Wipe, Fade in Interviews), jeweils mit Whoosh.
-- Gezielte Pausen nach Pointen über `PAUSE_AFTER` in `src/timeline.ts`.
+## 4. Typografie (`src/components/kinetic.tsx`)
 
-## 4. Bewegung
+- **Anton**, Großbuchstaben: `Letters` (Buchstaben springen einzeln herein) für das Schlagwort einer Einstellung, 130 bis 420 px.
+- `Marker`: Text auf Leuchtstift-Balken für die zweite Ebene. `Kicker` und `Tag` für Dachzeilen und Etiketten.
+- **Inter** 800/900 für kleine Labels, mindestens 28 px.
+- Pro Einstellung ein Schlagwort im Fokus. Text und Illustration dürfen sich nicht überlagern: nach jeder Änderung Standbilder prüfen.
 
-- `Beat` mit Auftritten `slam` (Schlagwort), `rise`, `pop` (Icons), `left/right/drop`.
-- Federn: `punch` (damping 22) für Schlagworte, `pop` (damping 14) für Icons, `smooth` (damping 200) für ruhige Wege, `needle` für den Tacho.
-- Aufprall-Wackler (`useShake`) nur bei echten Pointen (Titel, > 90 %, „verboten“, „rasen beide“).
-- Szenen zoomen langsam (`push` 2 bis 4 %), Hintergrundpunkte treiben nach oben.
-- Zahlen zählen hoch (`CountUp`) oder rotieren (`SlotNumber`).
+## 5. Farben
 
-## 5. Ton
+Dunkle, satte Himmel je Szene (Nachtblau, Petrol im Labor, EU-Blau, Violett an den Interviews, Morgenrot bei den Auswegen). Akzente: Rot `#FF4B3E` (Gefahr), Orange `#FF8A3D`, Gelb `#FFD23F` (Hervorhebung, Zahlen), Grün `#2EE59D` (Entwarnung, Lösungen), Blau `#3D8BFF` (KI, USA). Leuchten über `Glow` und `textShadow`, nicht über Blur-Filter.
+
+## 6. Timing
+
+- Das Voiceover bestimmt das Tempo (`src/timeline.ts`); Bild-Beats landen auf dem gesprochenen Wort.
+- Federn: `punch` für Schlagworte, `pop` für Icons, `smooth` für Wege und Kamera-nahe Bewegungen. In Schleifen `settle()`.
+- `useShake` nur an echten Pointen.
+
+## 7. Ton
 
 | Spur | Pegel |
 |---|---|
 | Voiceover | 1,0 |
-| Musik | 0,20, unter Sprache 0,07; in Interviews mit Video 0 |
-| SFX | 0,25 bis 0,5 (siehe `SFX_VOLUME` in `kinetic.tsx`) |
+| Musik | 0,22, unter Sprache 0,085, in Interviews mit Video 0 |
+| SFX | 0,2 bis 0,5 (siehe `SFX` in `kinetic.tsx`) |
 
-## 6. Niemals
+## 8. Grenzen
 
-1. Zahlen erfinden oder runden, die nicht belegt sind (Quellen im README).
-2. Fließtext oder Fußnoten ins Bild setzen; Erklärungen trägt die Stimme.
-3. CSS-Animationen oder `transition` (rendern in Remotion nicht korrekt).
-4. Echte Logos oder Flaggen nachzeichnen; Länder werden über Farbe und Schrift markiert.
-5. Mehr als eine Pointe gleichzeitig animieren.
+1. Keine erfundenen Zahlen; alles auf dem Bild ist im README belegt.
+2. Keine CSS-Animationen (rendern in Remotion nicht korrekt).
+3. Keine Porträt-Ähnlichkeit bei Personen, keine echten Logos oder Flaggen; Namen und Länder stehen als Schrift.
