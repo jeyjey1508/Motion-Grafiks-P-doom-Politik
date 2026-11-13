@@ -1,38 +1,35 @@
 import React from "react";
-import { Composition } from "remotion";
-import { PDoomVideo } from "./Composition";
-import { FPS, TOTAL_FRAMES } from "./timeline";
+import { Composition, Folder } from "remotion";
+import { DefineScene } from "./scenes/DefineScene";
+import { ExpertsScene } from "./scenes/ExpertsScene";
+import { OpenScene } from "./scenes/OpenScene";
+import { SurveyScene } from "./scenes/SurveyScene";
+import { FPS, SCENES, type Cues, type SceneId } from "./timeline";
+
+const SCENE_COMPS: readonly { id: string; scene: SceneId; component: React.FC<{ cues: Cues }> }[] = [
+  { id: "Open", scene: "open", component: OpenScene },
+  { id: "Define", scene: "define", component: DefineScene },
+  { id: "Experts", scene: "experts", component: ExpertsScene },
+  { id: "Survey", scene: "survey", component: SurveyScene },
+];
 
 export const RemotionRoot: React.FC = () => {
   return (
     <>
-      {/* Länge wird aus dem Voiceover berechnet (src/timeline.ts) */}
-      <Composition
-        id="PDoom"
-        component={PDoomVideo}
-        durationInFrames={TOTAL_FRAMES}
-        fps={FPS}
-        width={1920}
-        height={1080}
-        defaultProps={{
-          interview1: {
-            filename: "experte1.mp4",
-            name: "Name Expert:in 1",
-            role: "Funktion · Institution",
-            pDoom: "XX %",
-            trimBeforeSeconds: 0,
-          },
-          interview2: {
-            filename: "experte2.mp4",
-            name: "Name Expert:in 2",
-            role: "Funktion · Institution",
-            pDoom: "XX %",
-            trimBeforeSeconds: 0,
-          },
-          untertitel: false,
-          musikLautstaerke: 1,
-        }}
-      />
+      <Folder name="Szenen">
+        {SCENE_COMPS.map((s) => (
+          <Composition
+            key={s.id}
+            id={s.id}
+            component={s.component}
+            durationInFrames={SCENES[s.scene].durationInFrames}
+            fps={FPS}
+            width={1920}
+            height={1080}
+            defaultProps={{ cues: SCENES[s.scene].cues }}
+          />
+        ))}
+      </Folder>
     </>
   );
 };

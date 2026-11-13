@@ -10,7 +10,7 @@ import {
   useVideoConfig,
 } from "remotion";
 import { COLORS, FONT, SHADOW } from "../theme";
-import { SceneShell } from "./Background";
+import { Stage, useCam } from "../stage/Stage";
 import { Beat, Headline, Tag } from "./kinetic";
 
 export type InterviewBlockProps = {
@@ -103,13 +103,17 @@ const InterviewPlaceholder: React.FC<{
     easing: Easing.linear,
   });
 
+  const cam = useCam([
+    { at: 0, x: 0, y: 0, zoom: 1 },
+    { at: durationInFrames, x: 0, y: 0, zoom: 1.05 },
+  ]);
   const size = 360;
   const stroke = 22;
   const radius = (size - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
 
   return (
-    <SceneShell seed={`placeholder-${label}`} glow={COLORS.violet} bg="#110E26" push={0}>
+    <Stage seed={`placeholder-${label}`} cam={cam} sky={{ top: "#0C0A22", bottom: "#17123A", glow: COLORS.violet, stars: 60, dust: 10 }}>
       <AbsoluteFill
         style={{
           justifyContent: "center",
@@ -181,6 +185,6 @@ const InterviewPlaceholder: React.FC<{
         </div>
       </AbsoluteFill>
       {children}
-    </SceneShell>
+    </Stage>
   );
 };

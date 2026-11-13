@@ -93,29 +93,35 @@ async def synthesize(text: str, voice: str, rate: str, pitch: str, target: Path)
     import edge_tts  # noqa: PLC0415 (nur nötig, wenn wirklich erzeugt wird)
 
     proxy = os.environ.get("HTTPS_PROXY") or os.environ.get("https_proxy")
-    communicate = edge_tts.Communicate(
-        text, voice, rate=rate, pitch=pitch, proxy=proxy, boundary="WordBoundary"
-    )
     tmp = target.with_suffix(".tmp.mp3")
-    words: list[dict] = []
-    with tmp.open("wb") as handle:
-        async for chunk in communicate.stream():
-            if chunk["type"] == "audio":
-                handle.write(chunk["data"])
-            elif chunk["type"] == "WordBoundary":
-                start = chunk["offset"] / 10_000_000
-                words.append(
-                    {
-                        "text": chunk["text"],
-                        "start": round(start, 3),
-                        "end": round(start + chunk["duration"] / 10_000_000, 3),
-                    }
-                )
-    if tmp.stat().st_size == 0:
-        tmp.unlink()
-        raise RuntimeError(f"edge-tts lieferte keine Audiodaten für: {text!r}")
-    tmp.replace(target)
-    return words
+    last_error: Exception | None = None
+    for attempt in range(5):
+        communicate = edge_tts.Communicate(
+            text, voice, rate=rate, pitch=pitch, proxy=proxy, boundary="WordBoundary"
+        )
+        words: list[dict] = []
+        try:
+            with tmp.open("wb") as handle:
+                async for chunk in communicate.stream():
+                    if chunk["type"] == "audio":
+                        handle.write(chunk["data"])
+                    elif chunk["type"] == "WordBoundary":
+                        start = chunk["offset"] / 10_000_000
+                        words.append(
+                            {
+                                "text": chunk["text"],
+                                "start": round(start, 3),
+                                "end": round(start + chunk["duration"] / 10_000_000, 3),
+                            }
+                        )
+            if tmp.stat().st_size > 0:
+                tmp.replace(target)
+                return words
+        except Exception as error:  # noqa: BLE001 (Dienst antwortet gelegentlich leer)
+            last_error = error
+        await asyncio.sleep(2 + attempt * 2)
+    tmp.unlink(missing_ok=True)
+    raise RuntimeError(f"edge-tts lieferte keine Audiodaten für: {text!r}") from last_error
 
 
 async def main() -> int:
@@ -167,6 +173,13 @@ async def main() -> int:
                 }
             )
         manifest["scenes"].append({"id": scene["id"], "lines": lines_out})
+
+    # Dateien entfernen, die im Skript nicht mehr vorkommen
+    wanted = {Path(l["file"]).name for sc in manifest["scenes"] for l in sc["lines"]}
+    for stale in OUT_DIR.glob("*.mp3"):
+        if stale.name not in wanted:
+            stale.unlink()
+            print(f"  weg  {stale.name}")
 
     MANIFEST.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     total = sum(l["seconds"] for s in manifest["scenes"] for l in s["lines"])

@@ -8,75 +8,88 @@ import manifest from "./generated/voiceover.json";
 
 export const FPS = 30;
 /** Länge jedes Szenenübergangs (Überlappung zweier Szenen) */
-export const TRANSITION_FRAMES = 16;
+export const TRANSITION_FRAMES = 18;
 /** Feste Länge eines Interview-Slots (15 s) */
 export const INTERVIEW_FRAMES = 15 * FPS;
 
 /** Vorlauf bis zur ersten Sprachzeile einer Szene */
-const LEAD_IN = 12;
+const LEAD_IN = 10;
 /** Standardpause nach jeder Sprachzeile */
-const GAP = 7;
+const GAP = 5;
 /** Standard-Nachlauf nach der letzten Zeile einer Szene */
-const TAIL = 26;
-/** edge-tts-Wortmarken liegen ca. 0,1 s vor dem hörbaren Wort */
-const WORD_OFFSET_SECONDS = 0.1;
+const TAIL = 20;
+/** edge-tts-Wortmarken liegen ca. 0,07 s vor dem hörbaren Wort */
+const WORD_OFFSET_SECONDS = 0.07;
 
 /** Individuelle Pausen nach bestimmten Zeilen (in Frames) für Bild-Pointen */
 const PAUSE_AFTER: Record<string, number> = {
-  h3: 22,
-  h4: 6,
-  d2: 14,
-  e1: 10,
-  e2: 14,
-  e3: 14,
-  e4: 22,
-  a1: 12,
-  a3: 14,
-  a4: 12,
-  r1: 14,
-  r3: 12,
-  g2: 10,
-  g4: 10,
-  g5: 18,
-  o1: 16,
-  o2: 14,
+  o1: 10,
+  o2: 10,
+  o4: 14,
+  d1: 8,
+  e4: 14,
+  s1: 8,
+  b3: 10,
+  c2: 8,
+  c3: 10,
+  l2: 10,
+  r1: 8,
+  m1: 8,
+  m4: 10,
+  g3: 10,
+  x1: 8,
+  z1: 8,
+  z2: 22,
+  z4: 16,
 };
 
 /** Individueller Nachlauf pro Szene (in Frames) */
 const TAIL_FOR: Partial<Record<SceneId, number>> = {
-  hook: 34,
-  experts: 40,
-  alignment: 34,
-  eu: 36,
-  race: 40,
-  outro: 96,
+  open: 40,
+  experts: 30,
+  survey: 30,
+  lab: 30,
+  map: 30,
+  dilemma: 34,
+  solutions: 30,
+  closing: 132,
 };
 
 export type SceneId =
-  | "hook"
-  | "definition"
+  | "open"
+  | "define"
   | "experts"
+  | "survey"
   | "teaser1"
   | "interview1"
-  | "alignment"
+  | "blackbox"
+  | "coffee"
+  | "lab"
+  | "eu"
+  | "map"
+  | "dilemma"
   | "teaser2"
   | "interview2"
-  | "eu"
-  | "race"
-  | "outro";
+  | "solutions"
+  | "closing";
 
 export const SCENE_ORDER: readonly SceneId[] = [
-  "hook",
-  "definition",
+  "open",
+  "define",
   "experts",
+  "survey",
   "teaser1",
   "interview1",
-  "alignment",
+  "blackbox",
+  "coffee",
+  "lab",
+  "eu",
+  "map",
+  "dilemma",
   "teaser2",
   "interview2",
-  "eu",
-  "race",
-  "outro",
+  "solutions",
+  "closing",
 ];
 
 export type Word = {

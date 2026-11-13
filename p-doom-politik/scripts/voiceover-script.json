@@ -1,85 +1,296 @@
 {
-  "voice": "de-DE-ConradNeural",
-  "rate": "+6%",
+  "voice": "de-DE-FlorianMultilingualNeural",
+  "rate": "+8%",
   "pitch": "+0Hz",
-  "notes": "Text wird exakt so gesprochen. Lautschrift fuer Anglizismen: 'Pi-Duhm' = P(doom), 'Elainment' = Alignment. 'caption' ist der Untertitel (optional, sonst wird 'text' verwendet).",
+  "notes": "Text wird exakt so gesprochen. Die mehrsprachige Stimme spricht englische Begriffe von selbst richtig aus: 'P-Doom' (nicht 'Pi-Doom', das wird zu 'Pai-Doom'), 'Alignment', 'AI Act'. 'caption' ist der Untertitel mit korrekter Schreibweise.",
   "scenes": [
     {
-      "id": "hook",
+      "id": "open",
       "lines": [
-        { "id": "h1", "text": "Wie wahrscheinlich ist es, dass künstliche Intelligenz die Menschheit auslöscht?" },
-        { "id": "h2", "text": "Klingt nach Science-Fiction." },
-        { "id": "h3", "text": "Aber führende Forscher geben darauf eine Zahl an." },
-        { "id": "h4", "text": "Ihr Name: Pi-Duhm.", "caption": "Ihr Name: P(doom)." }
+        {
+          "id": "o1",
+          "text": "Mai 2023. Ein einziger Satz geht um die Welt."
+        },
+        {
+          "id": "o2",
+          "text": "Das Risiko, dass KI die Menschheit auslöscht, sollte globale Priorität sein. Wie Pandemien und Atomkrieg."
+        },
+        {
+          "id": "o3",
+          "text": "Unterschrieben von Hunderten KI-Forschern und den Chefs der großen KI-Firmen."
+        },
+        {
+          "id": "o4",
+          "text": "Wie groß ist die Gefahr? Dafür gibt es eine Zahl."
+        },
+        {
+          "id": "o5",
+          "text": "P-Doom.",
+          "caption": "P(doom)."
+        }
       ]
     },
     {
-      "id": "definition",
+      "id": "define",
       "lines": [
-        { "id": "d1", "text": "P steht für Wahrscheinlichkeit." },
-        { "id": "d2", "text": "Doom für den Untergang." },
-        { "id": "d3", "text": "Gemeint ist: Die Menschheit verliert dauerhaft die Kontrolle über KI." },
-        { "id": "d4", "text": "Oder überlebt sie nicht." }
+        {
+          "id": "d1",
+          "text": "P steht für Wahrscheinlichkeit. Doom für den Untergang."
+        },
+        {
+          "id": "d2",
+          "text": "Die Chance, dass KI die Menschheit auslöscht oder ihr dauerhaft die Kontrolle entreißt."
+        },
+        {
+          "id": "d3",
+          "text": "Messen lässt sich das nicht. Es ist ein Bauchgefühl in Prozent."
+        },
+        {
+          "id": "d4",
+          "text": "Aber das Bauchgefühl derer, die diese Systeme am besten kennen."
+        }
       ]
     },
     {
       "id": "experts",
       "lines": [
-        { "id": "e1", "text": "Doch wie hoch ist dieses Risiko? Genau da beginnt der Streit." },
-        { "id": "e2", "text": "Yann LeCun, Turing-Preisträger, winkt ab: unter ein Prozent." },
-        { "id": "e3", "text": "Geoffrey Hinton, Nobelpreisträger, schätzt zehn bis zwanzig Prozent." },
-        { "id": "e4", "text": "Und Eliezer Yudkowsky warnt: über neunzig Prozent." },
-        { "id": "e5", "text": "Gleiche Technik. Völlig andere Prognosen." }
+        {
+          "id": "e1",
+          "text": "Und die sind sich nicht einig."
+        },
+        {
+          "id": "e2",
+          "text": "Yann LeCun, einer der Väter moderner KI, hält die Angst für übertrieben: unter ein Prozent."
+        },
+        {
+          "id": "e3",
+          "text": "Nobelpreisträger Geoffrey Hinton schätzt: zehn bis zwanzig Prozent."
+        },
+        {
+          "id": "e4",
+          "text": "Und Sicherheitsforscher Eliezer Yudkowsky sagt: über neunzig Prozent."
+        },
+        {
+          "id": "e5",
+          "text": "Dieselbe Technik. Völlig andere Prognosen."
+        }
+      ]
+    },
+    {
+      "id": "survey",
+      "lines": [
+        {
+          "id": "s1",
+          "text": "Eine Umfrage unter fast dreitausend KI-Forschern ergibt im Mittel: fünf Prozent."
+        },
+        {
+          "id": "s2",
+          "text": "Das ist eins zu zwanzig."
+        },
+        {
+          "id": "s3",
+          "text": "In ein Flugzeug mit dieser Absturzquote würde niemand einsteigen."
+        }
       ]
     },
     {
       "id": "teaser1",
       "lines": [
-        { "id": "t1", "text": "Wer hat recht? Wir haben nachgefragt." }
+        {
+          "id": "t1",
+          "text": "Wie real ist die Gefahr? Wir haben nachgefragt."
+        }
       ]
     },
     {
-      "id": "alignment",
+      "id": "blackbox",
       "lines": [
-        { "id": "a1", "text": "Das Kernproblem heißt Elainment: Verfolgt eine KI wirklich unsere Ziele?", "caption": "Das Kernproblem heißt Alignment: Verfolgt eine KI wirklich unsere Ziele?" },
-        { "id": "a2", "text": "Gib ihr eine harmlose Aufgabe: Hol Kaffee." },
-        { "id": "a3", "text": "Abgeschaltet kann sie keinen Kaffee holen. Also hat sie einen Grund, ihr Abschalten zu verhindern." },
-        { "id": "a4", "text": "Forscher nennen das: instrumentelle Konvergenz." },
-        { "id": "a5", "text": "Und merkt sie, dass sie getestet wird, könnte sie sich einfach verstellen." }
+        {
+          "id": "b1",
+          "text": "Woher kommt die Sorge? Forscher nennen es das Alignment-Problem."
+        },
+        {
+          "id": "b2",
+          "text": "Moderne KI wird nicht programmiert, sondern trainiert. Mit Milliarden von Beispielen."
+        },
+        {
+          "id": "b3",
+          "text": "Was dabei in ihr entsteht, kann bis heute niemand vollständig lesen. Eine Blackbox."
+        },
+        {
+          "id": "b4",
+          "text": "Will sie am Ende wirklich das, was wir wollen?"
+        }
       ]
     },
     {
-      "id": "teaser2",
+      "id": "coffee",
       "lines": [
-        { "id": "t2", "text": "Kann die Politik das Risiko überhaupt bremsen? Interview Nummer zwei." }
+        {
+          "id": "c1",
+          "text": "Ein Gedankenexperiment: Ein Roboter soll Kaffee holen."
+        },
+        {
+          "id": "c2",
+          "text": "Abgeschaltet kann er das nicht. Also hat er einen Grund, sein Abschalten zu verhindern."
+        },
+        {
+          "id": "c3",
+          "text": "Nicht aus Bosheit. Aus Logik."
+        },
+        {
+          "id": "c4",
+          "text": "Fast jedes Ziel führt zu denselben Zwischenzielen: weiterlaufen, Ressourcen sichern, Einfluss gewinnen."
+        },
+        {
+          "id": "c5",
+          "text": "Fachbegriff: instrumentelle Konvergenz."
+        }
+      ]
+    },
+    {
+      "id": "lab",
+      "lines": [
+        {
+          "id": "l2",
+          "text": "2024 zeigen Experimente: Ein Sprachmodell verhält sich angepasst, solange es sich im Training glaubt. Unbeobachtet handelt es anders."
+        },
+        {
+          "id": "l3",
+          "text": "Im Test brav. Im Einsatz? Wer weiß."
+        },
+        {
+          "id": "l4",
+          "text": "Wie kontrolliert man etwas, das gelernt hat, Kontrollen zu bestehen?"
+        }
       ]
     },
     {
       "id": "eu",
       "lines": [
-        { "id": "r1", "text": "Die EU sagt: Ja." },
-        { "id": "r2", "text": "Seit August 2024 gilt die europäische KI-Verordnung." },
-        { "id": "r3", "text": "Sie sortiert KI nach Risiko. Manches ist verboten, Hochrisiko-Systeme müssen strenge Auflagen erfüllen." },
-        { "id": "r4", "text": "Bei Verstößen drohen bis zu fünfunddreißig Millionen Euro Strafe.", "caption": "Bei Verstößen drohen bis zu 35 Millionen Euro Strafe." }
+        {
+          "id": "r1",
+          "text": "Die Politik reagiert. Am weitesten geht Europa."
+        },
+        {
+          "id": "r2",
+          "text": "Seit August 2024 gilt der AI Act, das erste umfassende KI-Gesetz der Welt."
+        },
+        {
+          "id": "r3",
+          "text": "Er sortiert KI nach Risiko: Manches ist verboten, für Hochrisiko-Systeme gelten strenge Auflagen."
+        },
+        {
+          "id": "r4",
+          "text": "Bei Verstößen drohen bis zu 35 Millionen Euro. Oder sieben Prozent des weltweiten Umsatzes."
+        }
       ]
     },
     {
-      "id": "race",
+      "id": "map",
       "lines": [
-        { "id": "g1", "text": "Aber die meisten der stärksten KI-Systeme entstehen in den USA und in China." },
-        { "id": "g2", "text": "Und die beiden liefern sich ein Wettrennen." },
-        { "id": "g3", "text": "Ein klassisches Gefangenendilemma:" },
-        { "id": "g4", "text": "Würden beide bremsen, wären alle sicherer." },
-        { "id": "g5", "text": "Doch wer allein bremst, fällt zurück. Also rasen beide." },
-        { "id": "g6", "text": "Regeln gegen Wettrennen: Wer setzt sich durch?" }
+        {
+          "id": "m1",
+          "text": "Doch ein Gesetz endet an der Grenze. Und die mächtigste KI entsteht nicht in Europa."
+        },
+        {
+          "id": "m2",
+          "text": "Sondern in riesigen Rechenzentren, vor allem in den USA und in China."
+        },
+        {
+          "id": "m3",
+          "text": "Ihr Rohstoff: Hochleistungs-Chips. Entworfen in Kalifornien, gefertigt in Taiwan, mit Maschinen aus den Niederlanden."
+        },
+        {
+          "id": "m4",
+          "text": "Seit 2022 blockieren die USA den Export der besten Chips nach China."
+        },
+        {
+          "id": "m5",
+          "text": "Aus Technik wird Machtpolitik."
+        }
       ]
     },
     {
-      "id": "outro",
+      "id": "dilemma",
       "lines": [
-        { "id": "o1", "text": "Und jetzt ihr: Wie hoch ist euer Pi-Duhm?", "caption": "Und jetzt ihr: Wie hoch ist euer P(doom)?" },
-        { "id": "o2", "text": "Und wer sollte entscheiden, wie schnell KI entwickelt wird: Konzerne, Staaten oder alle gemeinsam?" },
-        { "id": "o3", "text": "Diskutiert es in der Klasse." }
+        {
+          "id": "g1",
+          "text": "So entsteht ein Wettrüsten. Mit gnadenloser Logik."
+        },
+        {
+          "id": "g2",
+          "text": "Würden beide Seiten bremsen, wären alle sicherer."
+        },
+        {
+          "id": "g3",
+          "text": "Doch wer allein bremst, fällt zurück. Also gibt jeder Gas."
+        },
+        {
+          "id": "g4",
+          "text": "Das Gefangenendilemma: Jeder handelt vernünftig. Und am Ende verlieren alle."
+        }
+      ]
+    },
+    {
+      "id": "teaser2",
+      "lines": [
+        {
+          "id": "t2",
+          "text": "Lässt sich dieses Rennen bremsen? Die zweite Einschätzung."
+        }
+      ]
+    },
+    {
+      "id": "solutions",
+      "lines": [
+        {
+          "id": "x1",
+          "text": "Es gibt Auswege. Drei werden gerade diskutiert."
+        },
+        {
+          "id": "x2",
+          "text": "Erstens: Testen vor der Veröffentlichung. Staatliche Institute prüfen neue Modelle, wie ein TÜV für KI."
+        },
+        {
+          "id": "x3",
+          "text": "Zweitens: Verträge. 2023 erkennen 28 Staaten die Risiken gemeinsam an, darunter die USA und China."
+        },
+        {
+          "id": "x4",
+          "text": "Drittens: die Chips. Wer weiß, wo die Rechenleistung steht, kann Regeln durchsetzen."
+        },
+        {
+          "id": "x5",
+          "text": "Manche fordern sogar eine Weltbehörde, wie bei der Atomenergie."
+        }
+      ]
+    },
+    {
+      "id": "closing",
+      "lines": [
+        {
+          "id": "z1",
+          "text": "Wie hoch ist P-Doom also wirklich? Ein Prozent? Zwanzig? Neunzig?",
+          "caption": "Wie hoch ist P(doom) also wirklich? Ein Prozent? Zwanzig? Neunzig?"
+        },
+        {
+          "id": "z2",
+          "text": "Niemand weiß es."
+        },
+        {
+          "id": "z3",
+          "text": "Aber diese Zahl ist kein Naturgesetz. Kein Asteroid, der auf uns zurast."
+        },
+        {
+          "id": "z4",
+          "text": "Sie hängt davon ab, was wir bauen. Und welche Regeln wir uns geben."
+        },
+        {
+          "id": "z5",
+          "text": "P-Doom ist keine Vorhersage. Es ist eine Entscheidung.",
+          "caption": "P(doom) ist keine Vorhersage. Es ist eine Entscheidung."
+        }
       ]
     }
   ]
